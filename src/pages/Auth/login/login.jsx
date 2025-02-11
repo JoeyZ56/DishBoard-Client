@@ -1,15 +1,45 @@
 // Import necessary MUI components
+import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import HamburgerMenu from "../../../components/hamburgerMenu";
 import { Link } from "react-router-dom";
+import { auth } from "../../../firebase/firebaseClient";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import HandleGoogleSignup from "../../../firebase/googleSignup";
+import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  //Handle Login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User signed in with:", userCredentials.user);
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+      setError(error.message);
+    }
+  };
+
   return (
     <>
       <HamburgerMenu />
 
       <Box
         component="form"
+        onSubmit={handleLogin}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -33,6 +63,8 @@ const Login = () => {
         <TextField
           label="Email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           variant="outlined"
           required
           fullWidth
@@ -61,6 +93,8 @@ const Login = () => {
         <TextField
           label="Password"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           variant="outlined"
           required
           fullWidth
@@ -98,19 +132,53 @@ const Login = () => {
         >
           Login
         </Button>
+        <Typography
+          textAlign="center"
+          variant="caption"
+          sx={{ fontSize: "1rem", fontWeight: "bold" }}
+        >
+          OR
+        </Typography>
+
         <Button
-          component={Link}
-          to="/signup"
-          variant="contained"
-          fullWidth
+          onClick={HandleGoogleSignup}
           sx={{
             backgroundColor: "#FFC107",
             color: "#000",
             "&:hover": { backgroundColor: "#FFB300" },
           }}
         >
-          Not a User? Sign up
+          <Typography
+            sx={{ color: "#000", marginRight: 2, textTransform: "none" }}
+          >
+            Log In with Google
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#FFF",
+              borderRadius: "50%",
+            }}
+          >
+            <FcGoogle size={25} />
+          </Box>
         </Button>
+
+        {/* Already a User Button */}
+        <Typography textAlign="center">
+          Not apart of the community?{" "}
+          <Link
+            to="/signup"
+            style={{
+              textDecoration: "none",
+              color: "#000",
+              fontWeight: "bold",
+            }}
+          >
+            Sign Up
+          </Link>
+        </Typography>
       </Box>
     </>
   );
