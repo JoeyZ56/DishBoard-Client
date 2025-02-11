@@ -9,6 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import HamburgerMenu from "../../components/hamburgerMenu";
+import ImageUploader from "./imageUploader";
 import "./styles.scss";
 
 const RecipeForm = () => {
@@ -67,7 +68,7 @@ const RecipeForm = () => {
       !formData.fileUpload ||
       !formData.category
     ) {
-      setError("All Feilds are required!");
+      setError("All Fields are required!");
       setLoading(false);
       return;
     }
@@ -93,7 +94,7 @@ const RecipeForm = () => {
       //reset form on success
       setFormData({
         recipeName: "",
-        ingridients: "",
+        ingredients: "",
         instructions: "",
         fileUpload: null,
         category: "select",
@@ -102,7 +103,7 @@ const RecipeForm = () => {
       window.location.href = "/";
     } catch (error) {
       console.error(error);
-      alert("Error occured submitting recipe");
+      alert("Error occurred submitting recipe");
     } finally {
       setLoading(false);
     }
@@ -260,31 +261,16 @@ const RecipeForm = () => {
           }}
         >
           <MenuItem value="select">Select</MenuItem>
-          <MenuItem value="breakfast">Breakfast</MenuItem>
-          <MenuItem value="lunch">Lunch</MenuItem>
-          <MenuItem value="dinner">Dinner</MenuItem>
-          <MenuItem value="dessert">Dessert</MenuItem>
+          <MenuItem value="Breakfast">Breakfast</MenuItem>
+          <MenuItem value="Lunch">Lunch</MenuItem>
+          <MenuItem value="Dinner">Dinner</MenuItem>
+          <MenuItem value="Dessert">Dessert</MenuItem>
+          <MenuItem value="Appetizer">Appetizer</MenuItem>
+          <MenuItem value="Side-Dish">Side Dish</MenuItem>
         </TextField>
 
         {/* Image Upload */}
-        <Button
-          variant="contained"
-          component="label"
-          sx={{
-            backgroundColor: "#FFC107",
-            color: "#000",
-            "&:hover": { backgroundColor: "#FFB300" },
-          }}
-          fullWidth
-        >
-          Upload Image
-          <input
-            type="file"
-            hidden
-            accept="image/*"
-            onChange={handleFileUpload}
-          />
-        </Button>
+        <ImageUploader handleFileUpload={handleFileUpload} />
 
         {/* Submit Form Button */}
 
@@ -299,7 +285,7 @@ const RecipeForm = () => {
           fullWidth
         >
           {loading ? (
-            <CircularProgress size={24} colore="inherit" />
+            <CircularProgress size={24} color="inherit" />
           ) : (
             "Submit Recipe"
           )}
