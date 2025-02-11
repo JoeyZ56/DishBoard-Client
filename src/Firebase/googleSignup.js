@@ -1,6 +1,5 @@
 import { auth, googleProvider, signInWithPopup } from "./firebaseClient";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const HandleGoogleSignup = async () => {
   try {
@@ -19,10 +18,6 @@ const HandleGoogleSignup = async () => {
     );
 
     console.log("Google responded with:", response.data);
-
-    const navigate = useNavigate();
-
-    navigate("/");
   } catch (error) {
     console.error("Google Sign-In failed:", error.message);
   }
