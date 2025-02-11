@@ -25,6 +25,8 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+
   //Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +58,7 @@ const Register = () => {
         email,
         password,
       });
+      navigate("/");
     } catch (error) {
       setError(error.message);
       //Logs
