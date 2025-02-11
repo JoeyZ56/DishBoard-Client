@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,9 +12,12 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase/firebaseClient";
+import { signOut } from "firebase/auth";
 
 export default function HamburgerMenu() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -23,6 +27,17 @@ export default function HamburgerMenu() {
       return;
     }
     setDrawerOpen(open);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out");
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      navigate("/login");
+    }
   };
 
   return (
@@ -78,15 +93,29 @@ export default function HamburgerMenu() {
           <ListItem button component={Link} to="/dessert">
             <ListItemText primary="Dessert Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/recipe-form">
-            <ListItemText primary="Create Recipe" sx={{ color: "#000" }} />
-          </ListItem>
-          <ListItem button component={Link} to="/signup">
-            <ListItemText primary="Sign Up" sx={{ color: "#000" }} />
-          </ListItem>
-          <ListItem button component={Link} to="/login">
-            <ListItemText primary="Log In" sx={{ color: "#000" }} />
-          </ListItem>
+          {/*Show sections if logged in. If not do not show */}
+          {auth.currentUser ? (
+            <>
+              <ListItem button component={Link} to="/recipe-form">
+                <ListItemText primary="Create Recipe" sx={{ color: "#000" }} />
+              </ListItem>
+              <ListItem button onClick={handleLogout}>
+                <ListItemText
+                  primary="Log out"
+                  sx={{ color: "#000", cursor: "pointer" }}
+                />
+              </ListItem>
+            </>
+          ) : (
+            <>
+              <ListItem button component={Link} to="/signup">
+                <ListItemText primary="Sign Up" sx={{ color: "#000" }} />
+              </ListItem>
+              <ListItem button component={Link} to="/login">
+                <ListItemText primary="Log In" sx={{ color: "#000" }} />
+              </ListItem>
+            </>
+          )}
         </List>
       </Drawer>
     </>
