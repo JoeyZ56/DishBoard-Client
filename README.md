@@ -30,6 +30,8 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 ### Environment
 
+    VITE_API_KEY=http://localhost:5003
+
     VITE_FIREBASE_API_KEY=YOUR API KEY
     VITE_FIREBASE_AUTH_DOMAIN=YOUR AUTH DOMAIN
     VITE_FIREBASE_PROJECT_ID=YOUR PROJECT ID
