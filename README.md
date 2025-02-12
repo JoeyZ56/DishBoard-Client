@@ -4,7 +4,7 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 ### User Stories
 
-- As a user I can sign up for an account to collect recipes that the communty as posted.
+- As a user I can sign up for an account to collect recipes that the community as posted.
 
 - As a user I can customize my profile. provide a profile image, bio section, or a link to my favorite recipes.
 
@@ -14,7 +14,29 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 - As a user I can search for recipes by name, category, or most liked recipes.
 
-- As a user i can change light or dark mode of the screen for my personal prefrence of color I prefer.
+- As a user i can change light or dark mode of the screen for my personal preference of color I prefer.
+
+### Setup Instructions:
+
+1.  Fork Repository into your own Github
+
+2.  Copy SSH clone Key and git clone into desired directory in the terminal:
+
+        git clone git@github.com:JoeyZ56/DishBoard-Client.git
+
+3.  Install dependencies
+
+        npm i all
+
+### Environment
+
+    VITE_FIREBASE_API_KEY=YOUR API KEY
+    VITE_FIREBASE_AUTH_DOMAIN=YOUR AUTH DOMAIN
+    VITE_FIREBASE_PROJECT_ID=YOUR PROJECT ID
+    VITE_FIREBASE_STORAGE_BUCKET= YOUR STORAGE BUCKET
+    VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR SENDER ID
+    VITE_FIREBASE_APP_ID=YOUR APP ID
+    VITE_FIREBASE_MEASURMENT_ID=YOUR MEASURMENT
 
 ### Firebase
 
@@ -22,7 +44,7 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
     https://firebase.google.com/docs/auth/web/password-auth
 
-##### Signup / login with Google
+##### Sign up / login with Google
 
     https://firebase.google.com/docs/auth/web/google-signin
 
@@ -32,20 +54,30 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 ### Material UI Design
 
+    https://mui.com/material-ui/
+
 ##### Colors: Rustic Kitchen Palette
 
-• Primary: Earthy Brown (#795548)
-• Accent: Golden Yellow (#FFC107)
-• Background: Warm Cream (#FFF3E0)
+• Primary: Earthy Brown
+
+    (#795548)
+
+• Accent: Golden Yellow
+
+    (#FFC107)
+
+• Background: Warm Cream
+
+    (#FFF3E0)
 
 ##### Home Page
 
-• Will Contain all of the current recipes from the database in decending order from most popular to least popular
+• Will Contain all of the current recipes from the database in descending order from most popular to least popular
 • Search bar to find recipes
 
 ##### To Do's:
 
-• Connect to firebase authetication
+• Connect to firebase authentication
 • finish backend for recipe form
 
 ### Issues:
