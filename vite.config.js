@@ -12,5 +12,8 @@ export default defineConfig({
     proxy: {
       "/api": process.env.VITE_API_KEY,
     },
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+    },
   },
 });

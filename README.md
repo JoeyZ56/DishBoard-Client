@@ -16,13 +16,27 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 - As a user i can change light or dark mode of the screen for my personal prefrence of color I prefer.
 
+### Firebase
+
+##### Create a user with Email & Password
+
+    https://firebase.google.com/docs/auth/web/password-auth
+
+##### Signup / login with Google
+
+    https://firebase.google.com/docs/auth/web/google-signin
+
+##### Resources
+
+    https://firebase.google.com/docs/auth/where-to-start
+
 ### Material UI Design
 
 ##### Colors: Rustic Kitchen Palette
 
-    • Primary: Earthy Brown (#795548)
-    • Accent: Golden Yellow (#FFC107)
-    • Background: Warm Cream (#FFF3E0)
+• Primary: Earthy Brown (#795548)
+• Accent: Golden Yellow (#FFC107)
+• Background: Warm Cream (#FFF3E0)
 
 ##### Home Page
 
