@@ -9,8 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import HamburgerMenu from "../../components/hamburgerMenu";
-import ImageUploader from "./imageUploader";
-import "./styles.scss";
+import Upload from  "./upload";
 
 const RecipeForm = () => {
   const [loading, setLoading] = useState(false);
@@ -35,19 +34,6 @@ const RecipeForm = () => {
     }));
   };
 
-  //handle file upload
-  /* The handleFileUpload function is responsible for 
-  handling the image file uploaded by the user. 
-  It updates the formData state with the uploaded file. */
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        fileUpload: file,
-      }));
-    }
-  };
 
   //form handler
   /* The handleFormSubmit function is triggered when 
@@ -270,7 +256,7 @@ const RecipeForm = () => {
         </TextField>
 
         {/* Image Upload */}
-        <ImageUploader handleFileUpload={handleFileUpload} />
+        <Upload setFormData={setFormData} />
 
         {/* Submit Form Button */}
 
