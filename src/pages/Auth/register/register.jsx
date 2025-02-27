@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HamburgerMenu from "../../../components/hamburgerMenu";
-import HandleGoogleSignup from "../../../firebase/googleSignup";
+import HandleGoogleSignup from "../../../Firebase/googleSignup"
 import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
@@ -40,7 +40,7 @@ const Register = () => {
     }
 
     try {
-      //create user with eamil and password
+      //create user with email and password
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -231,7 +231,7 @@ const Register = () => {
           }}
         >
           {loading ? (
-            <CircularProgress size={24} colore="inherit" />
+            <CircularProgress size={24} color="inherit" />
           ) : (
             "Sign Up"
           )}
@@ -246,7 +246,7 @@ const Register = () => {
         </Typography>
 
         <Button
-          onClick={HandleGoogleSignup}
+          onClick={() => HandleGoogleSignup(navigate)}
           sx={{
             backgroundColor: "#FFC107",
             color: "#000",

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import HamburgerMenu from "../../../components/hamburgerMenu";
 import { Link } from "react-router-dom";
-import { auth } from "../../../firebase/firebaseClient";
+import { auth } from "../../../Firebase/firebaseClient";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import HandleGoogleSignup from "../../../firebase/googleSignup";
+import HandleGoogleSignup from "../../../Firebase/googleSignup";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
@@ -141,7 +141,7 @@ const Login = () => {
         </Typography>
 
         <Button
-          onClick={HandleGoogleSignup}
+          onClick={() => HandleGoogleSignup(navigate)}
           sx={{
             backgroundColor: "#FFC107",
             color: "#000",

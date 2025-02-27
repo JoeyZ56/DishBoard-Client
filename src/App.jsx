@@ -9,15 +9,15 @@ import "./App.css";
 
 //Pages
 import Home from "./pages/Home/Home";
-import Breakfast from "./pages/Breakfast/Breakfast";
+import Breakfast from "./pages/Breakfast/breakfast";
 // import Lunch from "./pages/Lunch/Lunch";
 // import Dinner from "./pages/Dinner/Dinner";
 // import Dessert from "./pages/Dessert/Dessert";
 import RecipeForm from "./pages/RecipeForm/RecipeForm";
 
 //Auth
-import Register from "./pages/auth/register/register";
-import Login from "./pages/auth/login/login";
+import Register from "./pages/Auth/register/register";
+import Login from "./pages/Auth/login/login";
 
 function App() {
   return (

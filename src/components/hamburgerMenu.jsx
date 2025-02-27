@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/firebaseClient";
+import { auth } from "../Firebase/firebaseClient";
 import { signOut } from "firebase/auth";
 
 export default function HamburgerMenu() {
@@ -29,7 +29,7 @@ export default function HamburgerMenu() {
     setDrawerOpen(open);
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (navigate) => {
     try {
       await signOut(auth);
       console.log("User signed out");
@@ -99,7 +99,7 @@ export default function HamburgerMenu() {
               <ListItem button component={Link} to="/recipe-form">
                 <ListItemText primary="Create Recipe" sx={{ color: "#000" }} />
               </ListItem>
-              <ListItem button onClick={handleLogout}>
+              <ListItem button onClick={() => handleLogout(navigate)}>
                 <ListItemText
                   primary="Log out"
                   sx={{ color: "#000", cursor: "pointer" }}
