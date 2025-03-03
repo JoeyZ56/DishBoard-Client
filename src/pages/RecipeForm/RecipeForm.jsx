@@ -16,8 +16,9 @@ const RecipeForm = () => {
   const [formData, setFormData] = useState({
     recipeName: "",
     ingredients: "",
-    temp: "",
-    time: "",
+    prepTime: "",
+    cookTime: "",
+    servings: "",
     instructions: "",
     fileUpload: null,
     category: "select",
@@ -52,8 +53,9 @@ const RecipeForm = () => {
     if (
       !formData.recipeName ||
       !formData.ingredients ||
-      !formData.temp ||
-      !formData.time ||
+      !formData.prepTime ||
+      !formData.cookTime ||
+      !formData.servings ||
       !formData.instructions ||
       !formData.fileUpload ||
       !formData.category
@@ -68,6 +70,7 @@ const RecipeForm = () => {
     data.append("ingredients", formData.ingredients);
     data.append("temp", formData.temp);
     data.append("time", formData.time);
+    data.append("servings", formData.servings)
     data.append("instructions", formData.instructions);
     data.append("category", formData.category);
     if (formData.fileUpload) {
@@ -87,8 +90,9 @@ const RecipeForm = () => {
       setFormData({
         recipeName: "",
         ingredients: "",
-        temp: "",
-        time: "",
+        prepTime: "",
+        cookTime: "",
+        servings: "",
         instructions: "",
         fileUpload: null,
         category: "select",
@@ -163,6 +167,73 @@ const RecipeForm = () => {
           }}
         />
 
+         {/* Cooking Time & Temp Field */}
+         <Box sx={{ display: "flex", gap: 2 }}>
+          <TextField label="Cook Temp" name="temp" variant="outlined" required value={formData.temp} onChange={handleRecipeChange} sx={{
+            backgroundColor: "#FFF",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "black", // Default border color
+              },
+              "&:hover fieldset": {
+                borderColor: "black", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "black", // Border color when focused
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "black", // Label color
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "black", // Label color when focused
+            },
+          }}/>
+
+          <TextField label="Cook Time" name="time" variant="outlined" required value={formData.time} onChange={handleRecipeChange} sx={{
+            backgroundColor: "#FFF",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "black", // Default border color
+              },
+              "&:hover fieldset": {
+                borderColor: "black", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "black", // Border color when focused
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "black", // Label color
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "black", // Label color when focused
+            },
+          }}
+          />
+
+          <TextField label="servings" name="servings" variant="outlined" required value={formData.servings} onChange={handleRecipeChange}   sx={{ backgroundColor: "#FFF",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "black", // Default border color
+              },
+              "&:hover fieldset": {
+                borderColor: "black", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "black", // Border color when focused
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "black", // Label color
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "black", // Label color when focused
+            },
+          }}/>
+
+        </Box>
+
         {/* Ingredients Field */}
         <TextField
           label="Ingredients Used"
@@ -193,51 +264,6 @@ const RecipeForm = () => {
             },
           }}
         />
-
-        {/* Cooking Time & Temp Field */}
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <TextField label="Temperature" name="temp" variant="outlined" required value={formData.temp} onChange={handleRecipeChange} sx={{
-            backgroundColor: "#FFF",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black", // Default border color
-              },
-              "&:hover fieldset": {
-                borderColor: "black", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black", // Border color when focused
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black", // Label color
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black", // Label color when focused
-            },
-          }}/>
-          <TextField label="Cook Time" name="time" variant="outlined" required value={formData.time} onChange={handleRecipeChange} sx={{
-            backgroundColor: "#FFF",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black", // Default border color
-              },
-              "&:hover fieldset": {
-                borderColor: "black", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black", // Border color when focused
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black", // Label color
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black", // Label color when focused
-            },
-          }}/>
-
-        </Box>
 
         {/* Instructions Field */}
 
