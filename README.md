@@ -26,7 +26,7 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 3.  Install dependencies
 
-        npm i all
+        npm i 
 
 ### Environment
 
@@ -83,3 +83,6 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 • finish backend for recipe form
 
 ### Issues:
+
+Check Github Project board: <a href= "https://github.com/users/JoeyZ56/projects/10">DishBoard Project</a>
+

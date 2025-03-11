@@ -4,19 +4,18 @@ import { Box, Typography } from "@mui/material";
 const ImageUploader = ({ setFormData }) => {
   const [dragging, setDragging] = useState(false);
   const [fileName, setFileName] = useState("");
-  const [previewUrl, setPreviewUrl] = useState(null); // ✅ Store image preview URL
+  const [previewUrl, setPreviewUrl] = useState(null); //Store image preview URL
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (file) => {
     if (file) {
       setFormData((prev) => ({
         ...prev,
-        fileUpload: file,
+        image: file,
       }));
-
       setFileName(file.name);
 
-      // ✅ Create an object URL for preview
+      // Create an object URL for preview
       const objectUrl = URL.createObjectURL(file);
       setPreviewUrl(objectUrl);
     }
@@ -61,9 +60,11 @@ const ImageUploader = ({ setFormData }) => {
         transition: "background-color 0.3s, border 0.3s",
       }}
     >
-      {/* ✅ Show Image Preview if available */}
+      {/* Show Image Preview if available */}
       {previewUrl && (
-        <Box sx={{ display: "flex", justifyContent: "center", marginBottom: 2 }}>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginBottom: 2 }}
+        >
           <img
             src={previewUrl}
             alt="Uploaded Preview"
@@ -73,7 +74,9 @@ const ImageUploader = ({ setFormData }) => {
       )}
 
       <Typography variant="h6">
-        {fileName ? `Selected File: ${fileName}` : "Drag & Drop Image Here or Click to Upload"}
+        {fileName
+          ? `Selected File: ${fileName}`
+          : "Drag & Drop Image Here or Click to Upload"}
       </Typography>
 
       {/* Hidden File Input */}
