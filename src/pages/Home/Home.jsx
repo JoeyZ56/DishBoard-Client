@@ -2,17 +2,15 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Box,
-  Grid,
+  Grid2,
   Typography,
   Button,
   CircularProgress,
   CardMedia,
+  Card,
+  CardContent,
 } from "@mui/material";
 import HamburgerMenu from "../../components/hamburgerMenu";
-
-/*
-array of food by category, category leads to a page with all the food in that category
-*/
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -55,50 +53,92 @@ const Home = () => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "#795548", minHeight: "100vh" }}>
       <HamburgerMenu />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#FFF3E0",
-          // width: "95%",
-        }}
-      >
+
+      <Box sx={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1rem" }}>
         <Typography
-          variant="h4"
-          textAlign="center"
+          variant="h3"
           gutterBottom
-          sx={{ marginTop: "3rem" }}
+          sx={{
+            fontWeight: 600,
+            marginBottom: "2rem",
+            textAlign: "center",
+          }}
         >
-          Recipes
+          Discover Delicious Recipes
         </Typography>
-        {recipes.length === 0 ? (
-          <Box>
-            <Typography>
-              No recipes have been added yet. Be the first!
-            </Typography>
-          </Box>
-        ) : loading ? (
-          <Box>
+
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <CircularProgress />
           </Box>
+        ) : recipes.length === 0 ? (
+          <Typography variant="body1">
+            No recipes have been added yet. Be the first!
+          </Typography>
         ) : (
-          <Box>
+          <Grid2 container spacing={3}>
             {recipes.map((recipe) => (
-              <Link key={uid} to={`/recipes/${recipe._id}`}>
-                <CardMedia
-                  component="img"
-                  image={`data:${recipe.mimeType};base64,${recipe.image}`}
-                  alt={recipe.recipeName}
-                />
-              </Link>
+              <Grid2
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                key={recipe._id}
+                sx={{ backgroundColor: "FFF3E0" }}
+              >
+                <Card
+                  component={Link}
+                  to={`/recipes/${recipe._id}`}
+                  sx={{
+                    textDecoration: "none",
+                    backgroundColor: "#FFF3E0",
+                    borderRadius: 3,
+                    boxShadow: 3,
+                    padding: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    transition: "transform 0.2s ease-in-out",
+                    "&:hover": {
+                      transform: "scale(1.03)",
+                    },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={`data:${recipe.mimeType};base64,${recipe.image}`}
+                    alt={recipe.recipeName}
+                    sx={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                      borderRadius: 2,
+                      mb: 2,
+                    }}
+                  />
+
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight={600}
+                    textAlign="center"
+                    noWrap
+                  >
+                    {recipe.recipeName}
+                  </Typography>
+                </Card>
+              </Grid2>
             ))}
-          </Box>
+          </Grid2>
         )}
-        {error && <Typography color="error">{error.message}</Typography>}
+
+        {error && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {error.message}
+          </Typography>
+        )}
       </Box>
     </Box>
   );
