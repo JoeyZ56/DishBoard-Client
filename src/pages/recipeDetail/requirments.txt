@@ -1,0 +1,74 @@
+RecipeDetail.jsx Component Structure:
+
+1. Imports
+
+    React + hooks (useEffect, useState)
+
+    useParams from react-router-dom
+
+    Axios or fetch for API calls
+
+    MUI components for layout/styling
+
+2. Main Component Function
+
+    Grab id from route using useParams()
+
+    Define state to hold the recipe object (e.g., const [recipe, setRecipe] = useState(null))
+
+3. useEffect
+
+    Fetch recipe details from backend using id
+
+    Handle loading/error states as needed
+
+    Store data in state
+
+4. UI with MUI
+
+    Use MUI components like Card, Typography, Grid, etc. to display:
+
+        * Title
+
+        * Image (if any)
+        
+        * Ingredients
+
+        * Instructions
+
+        * Any extra metadata (prep time, servings, tags, etc.)
+
+-------------------------------------------------------------------
+
+Step-by-Step Thinking Guide: 
+
+1. Get the id from the URL
+
+    You're using react-router-dom—what hook lets you pull dynamic parts of the route?
+
+2.  State Setup
+
+    What kind of data structure is a recipe? Think about what default state value makes sense before it’s loaded.
+
+3. Data Fetch
+
+    How do you trigger a fetch only once when the component loads?
+
+    What’s the dependency array look like?
+
+    Where does the fetch go—inside or outside of the hook?
+
+4. Rendering Logic
+
+    What should the user see before the data loads?
+
+    What about if there’s an error or the fetch fails?
+
+5. Display with MUI
+
+    Break the recipe object down: title, description, ingredients, etc.
+
+    Think layout: Grid? Card? How do you want it to feel?
+
+    Do you need to map over any arrays inside the recipe?
+
