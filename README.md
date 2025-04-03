@@ -26,7 +26,7 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
 3.  Install dependencies
 
-        npm i 
+        npm i
 
 ### Environment
 
@@ -72,11 +72,6 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 
     (#FFF3E0)
 
-##### Home Page
-
-• Will Contain all of the current recipes from the database in descending order from most popular to least popular
-• Search bar to find recipes
-
 ##### To Do's:
 
 • Connect to firebase authentication
@@ -85,4 +80,3 @@ DishBoard is a community of users who share and collect recipes for cooking all 
 ### Issues:
 
 Check Github Project board: <a href= "https://github.com/users/JoeyZ56/projects/10">DishBoard Project</a>
-
