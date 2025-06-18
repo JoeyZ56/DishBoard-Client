@@ -28,12 +28,17 @@ const RecipeForm = () => {
         name: "",
         quantity: "",
         unit: "",
+        customQuantity: false, //acts as your toggle between select and custom input modes.
+        customUnit: false, //acts as your toggle between select and custom input modes.
       },
     ],
     instructions: [""],
     image: null,
     tags: [""],
+    useCustomTag: false, //acts as your toggle between select and custom input modes.
   });
+  const [customTagMode, setCustomTagMode] = useState(false);
+  const [customTagInput, setCustomTagInput] = useState("");
   const [error, setError] = useState(null);
 
   //handle input change
@@ -53,6 +58,15 @@ const RecipeForm = () => {
     const { name, value } = e.target;
     const updatedIngredients = [...formData.ingredientsList];
     updatedIngredients[index][name] = value;
+
+    if (name === "quantity" && value.trim() === "") {
+      updatedIngredients[index].customQuantity = false;
+    }
+
+    if (name === "unit" && value.trim() === "") {
+      updatedIngredients[index].customUnit = false;
+    }
+
     setFormData({ ...formData, ingredientsList: updatedIngredients });
   };
 
@@ -62,7 +76,13 @@ const RecipeForm = () => {
       ...formData,
       ingredientsList: [
         ...formData.ingredientsList,
-        { name: "", quantity: "", unit: "" },
+        {
+          name: "",
+          quantity: "",
+          unit: "",
+          customQuantity: false,
+          customUnit: false,
+        },
       ],
     });
   };
@@ -93,6 +113,22 @@ const RecipeForm = () => {
     setFormData({ ...formData, instructions: updatedInstructions });
   };
 
+  const handleAddTag = (value) => {
+    if (value && !formData.tags.includes(value)) {
+      setFormData((prev) => ({
+        ...prev,
+        tags: [...prev.tags, value.value],
+      }));
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
+    }));
+  };
+
   //form handler
   /* The handleFormSubmit function is triggered when 
   the user submits the recipe form. Its job is to:
@@ -119,22 +155,6 @@ const RecipeForm = () => {
       setLoading(false);
       return;
     }
-
-    // if (
-    //   !formData.recipeName ||
-    //   !formData.category ||
-    //   !formData.cuisineType ||
-    //   !formData.difficultyLevel ||
-    //   !formData.estimatedTime ||
-    //   !formData.servingSize ||
-    //   !formData.ingredientsList ||
-    //   !formData.instructions ||
-    //   !formData.image
-    // ) {
-    //   setError("All Fields are required!");
-    //   setLoading(false);
-    //   return;
-    // }
 
     const data = new FormData();
     console.log("Image before upload:", formData.image);
@@ -179,6 +199,8 @@ const RecipeForm = () => {
             name: "",
             quantity: "",
             unit: "",
+            customQuantity: false,
+            customUnit: false,
           },
         ],
         instructions: [""],
@@ -194,6 +216,39 @@ const RecipeForm = () => {
       setLoading(false);
     }
   };
+
+  //Custom data for quantity, units, and tags
+  const quantityOptions = [
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "1",
+    "2",
+    "3",
+    "4",
+    "Custom Quantity",
+  ];
+
+  const unitOptions = [
+    "Tbsp",
+    "Tsp",
+    "Cup",
+    "Gram",
+    "mL",
+    "oz",
+    "lb",
+    "Custom Unit",
+  ];
+  const tagOptions = [
+    "Vegetarian",
+    "Vegan",
+    "Gluten-Free",
+    "Keto",
+    "Low Carb",
+    "High Protein",
+    "Dairy-Free",
+  ];
 
   return (
     <>
@@ -364,60 +419,144 @@ const RecipeForm = () => {
                 },
               }}
             />
-            <TextField
-              label="Quantity"
-              name="quantity"
-              value={ingredient.quantity}
-              onChange={(e) => handleIngredientsChange(index, e)}
-              sx={{
-                width: 100,
-                backgroundColor: "#FFF",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "black",
+            {ingredient.customQuantity ? (
+              <>
+                <TextField
+                  label="Custom Quantity"
+                  name="quantity"
+                  value={ingredient.quantity}
+                  onChange={(e) => handleIngredientsChange(index, e)}
+                  sx={{
+                    width: 100,
+                    backgroundColor: "#FFF",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": { borderColor: "black" },
+                      "&:hover fieldset": { borderColor: "black" },
+                      "&.Mui-focused fieldset": { borderColor: "black" },
+                    },
+                    "& .MuiInputLabel-root": { color: "black" },
+                    "& .MuiInputLabel-root.Mui-focused": { color: "black" },
+                  }}
+                />
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    const updated = [...formData.ingredientsList];
+                    updated[index].customQuantity = false;
+                    updated[index].quantity = ""; // clears the input field
+                    setFormData({ ...formData, ingredientsList: updated });
+                  }}
+                  sx={{ ml: -2 }}
+                >
+                  ❌
+                </IconButton>
+              </>
+            ) : (
+              <TextField
+                select={!ingredient.customQuantity}
+                label="Quantity"
+                name="quantity"
+                value={ingredient.quantity}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const updated = [...formData.ingredientsList];
+                  if (value === "Custom Quantity") {
+                    updated[index].customQuantity = true;
+                    updated[index].quantity = "";
+                  } else {
+                    updated[index].quantity = value;
+                  }
+                  setFormData({ ...formData, ingredientsList: updated });
+                }}
+                sx={{
+                  width: 100,
+                  backgroundColor: "#FFF",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: "black" },
+                    "&:hover fieldset": { borderColor: "black" },
+                    "&.Mui-focused fieldset": { borderColor: "black" },
                   },
-                  "&:hover fieldset": {
-                    borderColor: "black",
+                  "& .MuiInputLabel-root": { color: "black" },
+                  "& .MuiInputLabel-root.Mui-focused": { color: "black" },
+                }}
+              >
+                {quantityOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+
+            {ingredient.customUnit ? (
+              <>
+                <TextField
+                  label="Custom Unit"
+                  name="unit"
+                  value={ingredient.unit}
+                  onChange={(e) => handleIngredientsChange(index, e)}
+                  sx={{
+                    width: 100,
+                    backgroundColor: "#FFF",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": { borderColor: "black" },
+                      "&:hover fieldset": { borderColor: "black" },
+                      "&.Mui-focused fieldset": { borderColor: "black" },
+                    },
+                    "& .MuiInputLabel-root": { color: "black" },
+                    "& .MuiInputLabel-root.Mui-focused": { color: "black" },
+                  }}
+                />
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    const updated = [...formData.ingredientsList];
+                    updated[index].customUnit = false;
+                    updated[index].unit = ""; // clears the input field
+                    setFormData({ ...formData, ingredientsList: updated });
+                  }}
+                  sx={{ ml: -2 }}
+                >
+                  ❌
+                </IconButton>
+              </>
+            ) : (
+              <TextField
+                select={!ingredient.customUnit}
+                label="Unit"
+                name="unit"
+                value={ingredient.unit}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const updated = [...formData.ingredientsList];
+                  if (value === "Custom Unit") {
+                    updated[index].customUnit = true;
+                    updated[index].unit = "";
+                  } else {
+                    updated[index].unit = value;
+                  }
+                  setFormData({ ...formData, ingredientsList: updated });
+                }}
+                sx={{
+                  width: 100,
+                  backgroundColor: "#FFF",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: "black" },
+                    "&:hover fieldset": { borderColor: "black" },
+                    "&.Mui-focused fieldset": { borderColor: "black" },
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "black",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "black",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "black",
-                },
-              }}
-            />
-            <TextField
-              label="Unit"
-              name="unit"
-              value={ingredient.unit}
-              onChange={(e) => handleIngredientsChange(index, e)}
-              sx={{
-                width: 100,
-                backgroundColor: "#FFF",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "black",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "black",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "black",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "black",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "black",
-                },
-              }}
-            />
+                  "& .MuiInputLabel-root": { color: "black" },
+                  "& .MuiInputLabel-root.Mui-focused": { color: "black" },
+                }}
+              >
+                {unitOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+
             <IconButton onClick={() => removeIngredient(index)} color="error">
               <Delete />
             </IconButton>
@@ -530,6 +669,7 @@ const RecipeForm = () => {
           <MenuItem value="Dessert">Dessert</MenuItem>
           <MenuItem value="Appetizer">Appetizer</MenuItem>
           <MenuItem value="Side-Dish">Side Dish</MenuItem>
+          <MenuItem value="Sauces">Sauce</MenuItem>
         </TextField>
 
         {/* Cuisine Type */}
@@ -570,7 +710,7 @@ const RecipeForm = () => {
           <MenuItem value="Other">Other</MenuItem>
         </TextField>
 
-        {/*Difficulty Level */}
+        {/* Difficulty Level */}
         <Typography variant="h6">Difficulty</Typography>
         <TextField
           select
@@ -614,32 +754,81 @@ const RecipeForm = () => {
 
         {/* Tags */}
         <Typography variant="h6">Tags</Typography>
-        <TextField
-          label="Enter tags (optional)"
-          name="tags"
-          value={formData.tags}
-          onChange={handleFormSubmit}
-          sx={{
-            backgroundColor: "#FFF",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black",
+
+        {/* Dropdown to add predefined tags */}
+        <Typography variant="h6">Tags</Typography>
+
+        {customTagMode ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <TextField
+              label="Custom Tag"
+              value={customTagInput}
+              onChange={(e) => setCustomTagInput(e.target.value)}
+              sx={{ backgroundColor: "#FFF", flex: 1 }}
+            />
+            <IconButton
+              onClick={() => {
+                if (customTagInput.trim()) {
+                  handleAddTag(customTagInput.trim());
+                  setCustomTagInput("");
+                  setCustomTagMode(false);
+                }
+              }}
+            >
+              <Add />
+            </IconButton>
+            <IconButton onClick={() => setCustomTagMode(false)}>❌</IconButton>
+          </Box>
+        ) : (
+          <TextField
+            select
+            label="Select Tag"
+            value=""
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === "Custom Tag") {
+                setCustomTagMode(true);
+              } else {
+                handleAddTag(val);
+              }
+            }}
+            sx={{
+              backgroundColor: "#FFF",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "black" },
+                "&:hover fieldset": { borderColor: "black" },
+                "&.Mui-focused fieldset": { borderColor: "black" },
               },
-              "&:hover fieldset": {
-                borderColor: "black",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black",
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black",
-            },
-          }}
-        />
+              "& .MuiInputLabel-root": { color: "black" },
+              "& .MuiInputLabel-root.Mui-focused": { color: "black" },
+            }}
+          >
+            {tagOptions.map((tag) => (
+              <MenuItem key={tag} value={tag}>
+                {tag}
+              </MenuItem>
+            ))}
+            <MenuItem value="Custom Tag">Custom Tag</MenuItem>
+          </TextField>
+        )}
+
+        {/* Display selected tags */}
+
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1 }}>
+          {formData.tags.map((tag, i) => (
+            <Button
+              key={i}
+              variant="outlined"
+              color="primary"
+              size="small"
+              onClick={() => handleRemoveTag(tag)}
+              endIcon={<Delete />}
+              sx={{ textTransform: "none" }}
+            >
+              {tag}
+            </Button>
+          ))}
+        </Box>
 
         {/* Image Upload */}
         <Upload setFormData={setFormData} />
