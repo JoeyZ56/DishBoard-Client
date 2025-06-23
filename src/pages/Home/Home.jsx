@@ -18,8 +18,9 @@ const Home = () => {
   const [categories, setCategories] = useState();
   const [search, setSearch] = useState();
   const [searchResults, setSearchResults] = useState();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [hasFetched, setHasFetched] = useState(false);
 
   //handle search
   // const handleSearch = () => {
@@ -44,6 +45,7 @@ const Home = () => {
         const data = await res.json();
         setRecipes(data);
         setLoading(false);
+        setHasFetched(true);
       } catch (error) {
         setError(error);
         setLoading(false);
@@ -69,9 +71,20 @@ const Home = () => {
           Discover Delicious Recipes
         </Typography>
 
-        {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <CircularProgress />
+        {loading && !hasFetched ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "60vh",
+            }}
+          >
+            <CircularProgress
+              sx={{ color: "#FFC107" }}
+              size={80}
+              thickness={5}
+            />
           </Box>
         ) : recipes.length === 0 ? (
           <Typography variant="body1">
