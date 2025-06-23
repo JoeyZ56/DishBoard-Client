@@ -35,7 +35,7 @@ const RecipeForm = () => {
     ],
     instructions: [""],
     image: null,
-    tags: [""],
+    tags: [],
     useCustomTag: false, //acts as your toggle between select and custom input modes.
   });
   const [customTagMode, setCustomTagMode] = useState(false);
@@ -115,10 +115,11 @@ const RecipeForm = () => {
   };
 
   const handleAddTag = (value) => {
-    if (value && !formData.tags.includes(value)) {
+    const trimmed = value.trim();
+    if (trimmed && !formData.tags.includes(trimmed)) {
       setFormData((prev) => ({
         ...prev,
-        tags: [...prev.tags, value.value],
+        tags: [...prev.tags, trimmed],
       }));
     }
   };

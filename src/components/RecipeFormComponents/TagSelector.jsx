@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
+import PropTypes from "prop-types";
 
 const TagSelector = ({
   tags,
@@ -110,4 +111,15 @@ const TagSelector = ({
   );
 };
 
+//Prop validation: to document and enforce the types of props a component should receive
 export default TagSelector;
+
+TagSelector.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleAddTag: PropTypes.func.isRequired,
+  handleRemoveTag: PropTypes.func.isRequired,
+  customTagInput: PropTypes.string.isRequired,
+  setCustomTagInput: PropTypes.func.isRequired,
+  customTagMode: PropTypes.bool.isRequired,
+  setCustomTagMode: PropTypes.func.isRequired,
+};
