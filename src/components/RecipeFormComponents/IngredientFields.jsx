@@ -42,9 +42,14 @@ const IngredientFields = ({
   return (
     <>
       {/* Ingredients Fields */}
-      <Typography variant="h6">Ingredients</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Ingredients
+      </Typography>
       {ingredientsList.map((ingredient, index) => (
-        <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box
+          key={index}
+          sx={{ display: "flex", alignItems: "center", gap: 2, m: 2 }}
+        >
           <TextField
             label="Ingredient Name"
             name="name"
@@ -52,6 +57,7 @@ const IngredientFields = ({
             onChange={(e) => handleIngredientsChange(index, e)}
             fullWidth
             sx={{
+              width: "50%",
               backgroundColor: "#FFF",
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -226,6 +232,7 @@ const IngredientFields = ({
         variant="contained"
         startIcon={<Add />}
         sx={{
+          mt: 2,
           backgroundColor: "#FFC107",
           color: "#000",
           "&:hover": { backgroundColor: "#FFB300" },

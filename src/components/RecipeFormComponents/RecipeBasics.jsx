@@ -4,7 +4,9 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
   return (
     <>
       {/* Recipe Name Field */}
-      <Typography variant="h6">Recipe Name</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Recipe Name
+      </Typography>
       <TextField
         label="Name"
         name="recipeName"
@@ -14,6 +16,7 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
         value={formData.recipeName}
         onChange={handleRecipeChange}
         sx={{
+          mb: 2,
           backgroundColor: "#FFF",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -35,6 +38,18 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
         }}
       />
 
+      {/* Labels */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 1,
+        }}
+      >
+        <Typography variant="h6">Serving Size</Typography>
+        <Typography variant="h6">Estimated Time</Typography>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -42,12 +57,6 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h6">Serving Size</Typography>
-        <Typography variant="h6" sx={{ marginRight: 4 }}>
-          Estimated Time
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         {/* Servings Field */}
 
         <TextField

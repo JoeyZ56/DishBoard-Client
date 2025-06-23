@@ -8,12 +8,13 @@ import {
   CircularProgress,
   MenuItem,
   IconButton,
+  stepClasses,
 } from "@mui/material";
 
 //File Imports
 import HamburgerMenu from "../../components/hamburgerMenu";
 import { getAuth } from "firebase/auth";
-import FormContainer from "../../components/RecipeFormComponents/FormContainer";
+import FormStepper from "../../components/RecipeFormComponents/FormStepper";
 
 const RecipeForm = () => {
   const [loading, setLoading] = useState(false);
@@ -41,6 +42,15 @@ const RecipeForm = () => {
   const [customTagMode, setCustomTagMode] = useState(false);
   const [customTagInput, setCustomTagInput] = useState("");
   const [error, setError] = useState(null);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    "Recipe Basics",
+    "Ingredients",
+    "Instructions",
+    "Types & Tags",
+    "Image Upload",
+  ];
 
   //handle input change
   /* The handleRecipeChange function is responsible for 
@@ -232,7 +242,7 @@ const RecipeForm = () => {
           flexDirection: "column",
           gap: 2,
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 600,
           margin: "auto",
           marginTop: "3rem",
           padding: 3,
@@ -249,7 +259,7 @@ const RecipeForm = () => {
         {/* Error Message */}
         {error && <Alert severity="error">{error}</Alert>}
 
-        <FormContainer
+        <FormStepper
           formData={formData}
           setFormData={setFormData}
           handleRecipeChange={handleRecipeChange}
@@ -265,26 +275,28 @@ const RecipeForm = () => {
           setCustomTagMode={setCustomTagMode}
           customTagInput={customTagInput}
           setCustomTagInput={setCustomTagInput}
+          reportStepToParent={setCurrentStep}
         />
 
         {/* Submit Form Button */}
-
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            backgroundColor: "#FFC107",
-            color: "#000",
-            "&:hover": { backgroundColor: "#FFB300" },
-          }}
-          fullWidth
-        >
-          {loading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            "Submit Recipe"
-          )}
-        </Button>
+        {currentStep === steps.length - 1 && (
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: "#FFC107",
+              color: "#000",
+              "&:hover": { backgroundColor: "#FFB300" },
+            }}
+            fullWidth
+          >
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Submit Recipe"
+            )}
+          </Button>
+        )}
       </Box>
     </>
   );

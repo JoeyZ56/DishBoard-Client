@@ -31,10 +31,9 @@ const TagSelector = ({
   return (
     <>
       {/* Tags */}
-      <Typography variant="h6">Tags</Typography>
-
-      {/* Dropdown to add predefined tags */}
-      <Typography variant="h6">Tags</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Tags
+      </Typography>
 
       {customTagMode ? (
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -71,6 +70,7 @@ const TagSelector = ({
             }
           }}
           sx={{
+            width: "30%",
             backgroundColor: "#FFF",
             "& .MuiOutlinedInput-root": {
               "& fieldset": { borderColor: "black" },
@@ -82,11 +82,28 @@ const TagSelector = ({
           }}
         >
           {tagOptions.map((tag) => (
-            <MenuItem key={tag} value={tag}>
+            <MenuItem
+              key={tag}
+              value={tag}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "#FFC107",
+                },
+              }}
+            >
               {tag}
             </MenuItem>
           ))}
-          <MenuItem value="Custom Tag">Custom Tag</MenuItem>
+          <MenuItem
+            value="Custom Tag"
+            sx={{
+              "&:hover": {
+                backgroundColor: "#FFC107",
+              },
+            }}
+          >
+            Custom Tag
+          </MenuItem>
         </TextField>
       )}
 
@@ -101,7 +118,15 @@ const TagSelector = ({
             size="small"
             onClick={() => handleRemoveTag(tag)}
             endIcon={<Delete />}
-            sx={{ textTransform: "none" }}
+            sx={{
+              textTransform: "none",
+              color: "#795548",
+              borderColor: "#795548",
+              "&:hover": {
+                backgroundColor: "#FFC107",
+                borderColor: "#795548",
+              },
+            }}
           >
             {tag}
           </Button>

@@ -10,7 +10,9 @@ const InstructionFields = ({
   return (
     <>
       {/* Instructions Field */}
-      <Typography variant="h6">Instructions</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Instructions
+      </Typography>
       {instructions.map((step, index) => (
         <Box
           key={index}
@@ -18,6 +20,7 @@ const InstructionFields = ({
             display: "flex",
             alignItems: "center",
             gap: 2,
+            mb: 2,
           }}
         >
           <TextField

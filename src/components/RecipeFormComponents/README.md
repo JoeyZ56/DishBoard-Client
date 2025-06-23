@@ -47,3 +47,7 @@ Holds image upload
 Main <form> wrapper with submit handler
 
 Holds and passes formData to each subcomponent
+
+##### Todo's
+
+Change colors on the steppers to mage colors on webpage

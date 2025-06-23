@@ -13,7 +13,9 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
   return (
     <>
       {/* courseType Select */}
-      <Typography variant="h6">Course Type</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Course Type
+      </Typography>
       <TextField
         select
         label="Select Course Type"
@@ -22,6 +24,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         onChange={handleRecipeChange}
         fullWidth
         sx={{
+          mb: 2,
           backgroundColor: "#FFF",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -42,18 +45,148 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
           },
         }}
       >
-        <MenuItem value="select">Select</MenuItem>
-        <MenuItem value="Breakfast">Breakfast</MenuItem>
-        <MenuItem value="Lunch">Lunch</MenuItem>
-        <MenuItem value="Dinner">Dinner</MenuItem>
-        <MenuItem value="Dessert">Dessert</MenuItem>
-        <MenuItem value="Appetizer">Appetizer</MenuItem>
-        <MenuItem value="Side-Dish">Side Dish</MenuItem>
-        <MenuItem value="Sauces">Sauce</MenuItem>
+        <MenuItem
+          value="select"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Select
+        </MenuItem>
+        <MenuItem
+          value="Breakfast"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Breakfast
+        </MenuItem>
+        <MenuItem
+          value="Lunch"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Lunch
+        </MenuItem>
+        <MenuItem
+          value="Dinner"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Dinner
+        </MenuItem>
+        <MenuItem
+          value="Dessert"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Dessert
+        </MenuItem>
+        <MenuItem
+          value="Appetizer"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Appetizer
+        </MenuItem>
+        <MenuItem
+          value="Side-Dish"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Side Dish
+        </MenuItem>
+        <MenuItem
+          value="Sauces"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Sauce
+        </MenuItem>
       </TextField>
 
       {/* Cuisine Type */}
-      <Typography variant="h6">Cuisine Type</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Cuisine Type
+      </Typography>
       <TextField
         select
         label="Select Cuisine Type"
@@ -62,6 +195,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         onChange={handleRecipeChange}
         fullWidth
         sx={{
+          mb: 2,
           backgroundColor: "#FFF",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -82,16 +216,114 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
           },
         }}
       >
-        <MenuItem value="select">Select</MenuItem>
-        <MenuItem value="American">American</MenuItem>
-        <MenuItem value="Mexican">Mexican</MenuItem>
-        <MenuItem value="Italian">Italian</MenuItem>
-        <MenuItem value="Asian">Asian</MenuItem>
-        <MenuItem value="Other">Other</MenuItem>
+        <MenuItem
+          value="select"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Select
+        </MenuItem>
+        <MenuItem
+          value="American"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          American
+        </MenuItem>
+        <MenuItem
+          value="Mexican"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Mexican
+        </MenuItem>
+        <MenuItem
+          value="Italian"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Italian
+        </MenuItem>
+        <MenuItem
+          value="Asian"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Asian
+        </MenuItem>
+        <MenuItem
+          value="Other"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Other
+        </MenuItem>
       </TextField>
 
       {/* Difficulty Level */}
-      <Typography variant="h6">Difficulty</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Difficulty
+      </Typography>
       <TextField
         select
         label="Select Difficulty"
@@ -100,6 +332,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         onChange={handleRecipeChange}
         fullWidth
         sx={{
+          mb: 2,
           backgroundColor: "#FFF",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -120,14 +353,72 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
           },
         }}
       >
-        <MenuItem value="select">Select</MenuItem>
-        <MenuItem value="Easy" sx={{ color: "green" }}>
+        <MenuItem
+          value="select"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
+          Select
+        </MenuItem>
+        <MenuItem
+          value="Easy"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
           Easy
         </MenuItem>
-        <MenuItem value="Medium" sx={{ color: "orange" }}>
+        <MenuItem
+          value="Medium"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
           Medium
         </MenuItem>
-        <MenuItem value="Hard" sx={{ color: "red" }}>
+        <MenuItem
+          value="Hard"
+          sx={{
+            "&.Mui-selected": {
+              backgroundColor: "#EFEBE9   !important", // override default blue
+              color: "#000",
+            },
+            "&.Mui-selected:hover": {
+              backgroundColor: "#FFB300",
+            },
+            "&:hover": {
+              backgroundColor: "#FFC107",
+            },
+          }}
+        >
           Hard
         </MenuItem>
       </TextField>
