@@ -10,11 +10,13 @@ const RecipeDetail = () => {
 
   const { id } = useParams();
 
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   //useEffect for fetching
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:5003/api/recipes/${id}`);
+        const res = await fetch(`${apiKey}/api/recipes/${id}`);
         // console.log("Image preview:", recipeDetail.image?.substring(0, 100));
 
         if (!res.ok) {

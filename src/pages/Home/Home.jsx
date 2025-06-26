@@ -31,7 +31,7 @@ const Home = () => {
 
   //handle category
   // const handleFilterCategory = (category) => {
-  //   setSearchResults(recipes.filter((recipe) => recipe.catefory === category));
+  //   setSearchResults(recipes.filter((recipe) => recipe.category === category));
   // };
 
   //get all recipes
