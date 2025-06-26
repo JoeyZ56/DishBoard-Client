@@ -22,6 +22,8 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [hasFetched, setHasFetched] = useState(false);
 
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   //handle search
   // const handleSearch = () => {
   //   setSearchResults(recipes.filter((recipe) => recipe.name === search));
@@ -36,7 +38,7 @@ const Home = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:5003/api/recipes");
+        const res = await fetch(`${apiKey}/api/recipes`);
 
         if (!res.ok) {
           throw new Error("Error fetching recipes for the frontend");
