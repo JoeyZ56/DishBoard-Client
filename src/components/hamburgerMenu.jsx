@@ -42,25 +42,31 @@ export default function HamburgerMenu() {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#FFC107" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "#FFC107", px: 2, boxShadow: 2 }}
+      >
         <Toolbar>
           <Typography
             variant="h6"
-            component="div"
+            component="a"
+            href="/"
             sx={{
               flexGrow: 1,
               color: "#000",
               fontWeight: "bold",
-              fontSize: "28px",
+              fontSize: { xs: "20px", sm: "28px" }, // Shrink on xs
+              textDecoration: "none",
+              whiteSpace: "nowrap",
             }} // FlexGrow makes it align left
           >
             DishBoard
           </Typography>
           <IconButton
             edge="start"
-            color="#795548"
             aria-label="menu"
             onClick={toggleDrawer(true)}
+            sx={{ color: "#795548" }}
           >
             <MenuIcon />
           </IconButton>
@@ -78,28 +84,45 @@ export default function HamburgerMenu() {
         }}
       >
         <List>
-          <ListItem button component={Link} to="/">
+          <ListItem button component={Link} to="/" sx={{ py: 1.5 }}>
             <ListItemText primary="Home" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/breakfast">
+          <ListItem button component={Link} to="/breakfast" sx={{ py: 1.5 }}>
             <ListItemText primary="Breakfast Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/lunch">
+          <ListItem button component={Link} to="/lunch" sx={{ py: 1.5 }}>
             <ListItemText primary="Lunch Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/dinner">
+          <ListItem button component={Link} to="/dinner" sx={{ py: 1.5 }}>
             <ListItemText primary="Dinner Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/dessert">
+          <ListItem button component={Link} to="/dessert" sx={{ py: 1.5 }}>
             <ListItemText primary="Dessert Recipes" sx={{ color: "#000" }} />
           </ListItem>
           {/*Show sections if logged in. If not do not show */}
           {auth.currentUser ? (
             <>
-              <ListItem button component={Link} to="/recipe-form">
+              <ListItem
+                button
+                component={Link}
+                to="/recipe-form"
+                sx={{ py: 1.5 }}
+              >
                 <ListItemText primary="Create Recipe" sx={{ color: "#000" }} />
               </ListItem>
-              <ListItem button onClick={() => handleLogout(navigate)}>
+              <ListItem
+                button
+                component={Link}
+                to="/user-account"
+                sx={{ py: 1.5 }}
+              >
+                <ListItemText primary="User Account" sx={{ color: "#000" }} />
+              </ListItem>
+              <ListItem
+                button
+                onClick={() => handleLogout(navigate)}
+                sx={{ py: 1.5 }}
+              >
                 <ListItemText
                   primary="Log out"
                   sx={{ color: "#000", cursor: "pointer" }}

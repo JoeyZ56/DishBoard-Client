@@ -1,18 +1,15 @@
 import { useState } from "react";
 import {
-  TextField,
   Button,
   Box,
   Typography,
   Alert,
   CircularProgress,
-  MenuItem,
-  IconButton,
-  stepClasses,
 } from "@mui/material";
+import { buttonStyle, wrapBoxStyle } from "../../styles/styles";
 
 //File Imports
-import HamburgerMenu from "../../components/hamburgerMenu";
+import Nav from "../../components/hamburgerMenu";
 import { getAuth } from "firebase/auth";
 import FormStepper from "../../components/RecipeFormComponents/FormStepper";
 
@@ -169,7 +166,7 @@ const RecipeForm = () => {
     }
 
     const data = new FormData();
-    console.log("Image before upload:", formData.image);
+    // console.log("Image before upload:", formData.image);
 
     data.append("recipeName", formData.recipeName);
     data.append("courseType", formData.courseType);
@@ -189,12 +186,14 @@ const RecipeForm = () => {
     data.append("createdBy", uid);
 
     try {
-      console.log(`${import.meta.env.VITE_API_KEY}/api/recipes`);
+      // console.log(`${import.meta.env.VITE_API_KEY}/api/recipes`);
       const res = await fetch(`${import.meta.env.VITE_API_KEY}/api/recipes`, {
         method: "POST",
         body: data,
       });
       if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Server error response:", errorData);
         throw new Error("Failed to submit recipe");
       }
 
@@ -222,7 +221,7 @@ const RecipeForm = () => {
       alert("Recipe has been added");
       window.location.href = "/";
     } catch (error) {
-      console.error(error);
+      console.error("Submission error:", error);
       alert("Error occurred submitting recipe");
     } finally {
       setLoading(false);
@@ -231,27 +230,10 @@ const RecipeForm = () => {
 
   return (
     <>
-      <HamburgerMenu />
+      <Nav />
 
       {/* Form */}
-      <Box
-        component="form"
-        onSubmit={handleFormSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          maxWidth: 600,
-          margin: "auto",
-          marginTop: "3rem",
-          padding: 3,
-          border: "1px solid #ccc",
-          backgroundColor: "#FFF3E0",
-          borderRadius: 2,
-          boxShadow: 3,
-        }}
-      >
+      <Box component="form" onSubmit={handleFormSubmit} sx={wrapBoxStyle}>
         <Typography variant="h4" textAlign="center" gutterBottom>
           Create Recipe
         </Typography>
@@ -280,16 +262,7 @@ const RecipeForm = () => {
 
         {/* Submit Form Button */}
         {currentStep === steps.length - 1 && (
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              backgroundColor: "#FFC107",
-              color: "#000",
-              "&:hover": { backgroundColor: "#FFB300" },
-            }}
-            fullWidth
-          >
+          <Button type="submit" variant="contained" sx={buttonStyle} fullWidth>
             {loading ? (
               <CircularProgress size={24} color="inherit" />
             ) : (

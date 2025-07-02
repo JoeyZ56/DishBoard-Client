@@ -1,5 +1,6 @@
 import { TextField, Button, Box, Typography, IconButton } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
+import { inputStyle } from "../../styles/styles";
 
 const InstructionFields = ({
   instructions,
@@ -24,32 +25,13 @@ const InstructionFields = ({
           }}
         >
           <TextField
-            label={`step ${index + 1}`}
+            label={`Step ${index + 1}`}
             value={step}
             onChange={(e) => handleInstructionChange(index, e)}
             fullWidth
             multiline
-            row={2}
-            sx={{
-              backgroundColor: "#FFF",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "black",
-                },
-                "&:hover fieldset": {
-                  borderColor: "black",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "black",
-                },
-              },
-              "& .MuiInputLabel-root": {
-                color: "black",
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "black",
-              },
-            }}
+            rows={2}
+            sx={inputStyle}
           />
           <IconButton onClick={() => removeInstruction(index)} color="error">
             <Delete />

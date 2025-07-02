@@ -10,7 +10,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import HamburgerMenu from "../../components/hamburgerMenu";
+import Nav from "../../components/hamburgerMenu";
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <Box sx={{ backgroundColor: "#795548", minHeight: "100vh" }}>
-      <HamburgerMenu />
+      <Nav />
 
       <Box sx={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1rem" }}>
         <Typography
@@ -68,6 +68,7 @@ const Home = () => {
             fontWeight: 600,
             marginBottom: "2rem",
             textAlign: "center",
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
           }}
         >
           Discover Delicious Recipes
@@ -143,6 +144,8 @@ const Home = () => {
                   >
                     {recipe.recipeName}
                   </Typography>
+
+                  <Typography>Chef: {recipe.createdBy.username}</Typography>
                 </Card>
               </Grid2>
             ))}
