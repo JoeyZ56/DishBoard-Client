@@ -20,6 +20,10 @@ const Username = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    if (!username.trim()) {
+      return setError("Username cannot be empty");
+    }
+
     if (!user) {
       setError("User not authenticated. Please log in.");
       return;
@@ -42,6 +46,15 @@ const Username = () => {
         const data = await res.json();
         throw new Error(data.message || "Failed to create username");
       }
+
+      const currentAuth = JSON.parse(localStorage.getItem("auth"));
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({
+          ...currentAuth,
+          username: username,
+        })
+      );
 
       navigate("/");
     } catch (error) {
