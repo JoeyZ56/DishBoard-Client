@@ -13,9 +13,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import HamburgerMenu from "../../../components/hamburgerMenu";
-import HandleGoogleSignup from "../../../Firebase/googleSignup"
+import Nav from "../../../components/hamburgerMenu";
+import HandleGoogleSignup from "../../../Firebase/googleSignup";
 import { FcGoogle } from "react-icons/fc";
+import { authStyle, buttonStyle, wrapBoxStyle } from "../../../styles/styles";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -46,8 +47,6 @@ const Register = () => {
         email,
         password
       );
-      //LOGS
-      console.log("User signed up with:", userCredentials.user);
 
       const { user } = userCredentials;
 
@@ -58,6 +57,24 @@ const Register = () => {
         email,
         password,
       });
+
+      //Fetch user from the backend
+      const res = await fetch(
+        `${import.meta.env.VITE_API_KEY}/api/users/${user.uid}`
+      );
+      const data = await res.json();
+      console.log("User Data from Backend:", data);
+
+      //storing user data in localStorage
+      const userData = {
+        username: data.user.username,
+        email: data.user.email,
+        uid: data.user.uid,
+      };
+      console.log("User Data:", userData);
+
+      localStorage.setItem("auth", JSON.stringify(userData));
+
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -70,28 +87,11 @@ const Register = () => {
 
   return (
     <>
-      <HamburgerMenu />
+      <Nav />
 
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          maxWidth: 400,
-          margin: "auto",
-          marginTop: "3rem",
-          padding: 3,
-          border: "1px solid #ccc",
-          backgroundColor: "#FFF3E0",
-          borderRadius: 2,
-          boxShadow: 3,
-        }}
-      >
+      <Box component="form" onSubmit={handleSubmit} sx={wrapBoxStyle}>
         <Typography variant="h4" textAlign="center" gutterBottom>
-          Join the community!
+          Join The Community!
         </Typography>
 
         {/* Error Message */}
@@ -106,25 +106,7 @@ const Register = () => {
           fullWidth
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black", // Default border color
-              },
-              "&:hover fieldset": {
-                borderColor: "black", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black", // Border color when focused
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black", // Label color
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black", // Label color when focused
-            },
-          }}
+          sx={authStyle}
         />
 
         {/* Email Field */}
@@ -138,25 +120,7 @@ const Register = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black",
-              },
-              "&:hover fieldset": {
-                borderColor: "black",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black",
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black",
-            },
-          }}
+          sx={authStyle}
         />
 
         {/* Password Field */}
@@ -168,25 +132,7 @@ const Register = () => {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black",
-              },
-              "&:hover fieldset": {
-                borderColor: "black",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black",
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black",
-            },
-          }}
+          sx={authStyle}
         />
         {/* Confirm Password */}
         <TextField
@@ -197,44 +143,13 @@ const Register = () => {
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black",
-              },
-              "&:hover fieldset": {
-                borderColor: "black",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black",
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black",
-            },
-          }}
+          sx={authStyle}
         />
 
         {/* Sign Up Button */}
 
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
-          sx={{
-            backgroundColor: "#FFC107",
-            color: "#000",
-            "&:hover": { backgroundColor: "#FFB300" },
-          }}
-        >
-          {loading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : (
-            "Sign Up"
-          )}
+        <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Sign Up"}
         </Button>
 
         <Typography
@@ -245,14 +160,7 @@ const Register = () => {
           or
         </Typography>
 
-        <Button
-          onClick={() => HandleGoogleSignup(navigate)}
-          sx={{
-            backgroundColor: "#FFC107",
-            color: "#000",
-            "&:hover": { backgroundColor: "#FFB300" },
-          }}
-        >
+        <Button onClick={() => HandleGoogleSignup(navigate)} sx={buttonStyle}>
           <Typography
             sx={{ color: "#000", marginRight: 2, textTransform: "none" }}
           >

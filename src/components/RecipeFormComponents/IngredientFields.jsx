@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
+import { inputStyle } from "../../styles/styles";
 
 const IngredientFields = ({
   ingredientsList,
@@ -41,81 +42,60 @@ const IngredientFields = ({
 
   return (
     <>
-      {/* Ingredients Fields */}
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
         Ingredients
       </Typography>
+
       {ingredientsList.map((ingredient, index) => (
         <Box
           key={index}
-          sx={{ display: "flex", alignItems: "center", gap: 2, m: 2 }}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 2,
+            mb: 3,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
         >
+          {/* Ingredient Name */}
           <TextField
-            label="Ingredient Name"
+            label="Ingredient"
             name="name"
             value={ingredient.name}
             onChange={(e) => handleIngredientsChange(index, e)}
             fullWidth
-            sx={{
-              width: "50%",
-              backgroundColor: "#FFF",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "black",
-                },
-                "&:hover fieldset": {
-                  borderColor: "black",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "black",
-                },
-              },
-              "& .MuiInputLabel-root": {
-                color: "black",
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "black",
-              },
-            }}
+            sx={inputStyle}
           />
+
+          {/* Quantity */}
           {ingredient.customQuantity ? (
-            <>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <TextField
                 label="Custom Quantity"
                 name="quantity"
                 value={ingredient.quantity}
                 onChange={(e) => handleIngredientsChange(index, e)}
-                sx={{
-                  width: 100,
-                  backgroundColor: "#FFF",
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": { borderColor: "black" },
-                    "&:hover fieldset": { borderColor: "black" },
-                    "&.Mui-focused fieldset": { borderColor: "black" },
-                  },
-                  "& .MuiInputLabel-root": { color: "black" },
-                  "& .MuiInputLabel-root.Mui-focused": { color: "black" },
-                }}
+                sx={{ ...inputStyle, width: 100 }}
               />
               <IconButton
                 size="small"
                 onClick={() => {
                   const updated = [...ingredientsList];
                   updated[index].customQuantity = false;
-                  updated[index].quantity = ""; // clears the input field
+                  updated[index].quantity = "";
                   setFormData((prev) => ({
                     ...prev,
                     ingredientsList: updated,
                   }));
                 }}
-                sx={{ ml: -2 }}
               >
                 ❌
               </IconButton>
-            </>
+            </Box>
           ) : (
             <TextField
-              select={!ingredient.customQuantity}
+              select
               label="Quantity"
               name="quantity"
               value={ingredient.quantity}
@@ -130,17 +110,7 @@ const IngredientFields = ({
                 }
                 setFormData((prev) => ({ ...prev, ingredientsList: updated }));
               }}
-              sx={{
-                width: 100,
-                backgroundColor: "#FFF",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "black" },
-                  "&:hover fieldset": { borderColor: "black" },
-                  "&.Mui-focused fieldset": { borderColor: "black" },
-                },
-                "& .MuiInputLabel-root": { color: "black" },
-                "& .MuiInputLabel-root.Mui-focused": { color: "black" },
-              }}
+              sx={{ ...inputStyle, width: 100 }}
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -150,44 +120,34 @@ const IngredientFields = ({
             </TextField>
           )}
 
+          {/* Unit */}
           {ingredient.customUnit ? (
-            <>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <TextField
                 label="Custom Unit"
                 name="unit"
                 value={ingredient.unit}
                 onChange={(e) => handleIngredientsChange(index, e)}
-                sx={{
-                  width: 100,
-                  backgroundColor: "#FFF",
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": { borderColor: "black" },
-                    "&:hover fieldset": { borderColor: "black" },
-                    "&.Mui-focused fieldset": { borderColor: "black" },
-                  },
-                  "& .MuiInputLabel-root": { color: "black" },
-                  "& .MuiInputLabel-root.Mui-focused": { color: "black" },
-                }}
+                sx={{ ...inputStyle, width: 100 }}
               />
               <IconButton
                 size="small"
                 onClick={() => {
                   const updated = [...ingredientsList];
                   updated[index].customUnit = false;
-                  updated[index].unit = ""; // clears the input field
+                  updated[index].unit = "";
                   setFormData((prev) => ({
                     ...prev,
                     ingredientsList: updated,
                   }));
                 }}
-                sx={{ ml: -2 }}
               >
                 ❌
               </IconButton>
-            </>
+            </Box>
           ) : (
             <TextField
-              select={!ingredient.customUnit}
+              select
               label="Unit"
               name="unit"
               value={ingredient.unit}
@@ -202,17 +162,7 @@ const IngredientFields = ({
                 }
                 setFormData((prev) => ({ ...prev, ingredientsList: updated }));
               }}
-              sx={{
-                width: 100,
-                backgroundColor: "#FFF",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "black" },
-                  "&:hover fieldset": { borderColor: "black" },
-                  "&.Mui-focused fieldset": { borderColor: "black" },
-                },
-                "& .MuiInputLabel-root": { color: "black" },
-                "& .MuiInputLabel-root.Mui-focused": { color: "black" },
-              }}
+              sx={{ ...inputStyle, width: 100 }}
             >
               {unitOptions.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -222,11 +172,13 @@ const IngredientFields = ({
             </TextField>
           )}
 
+          {/* Delete Ingredient */}
           <IconButton onClick={() => removeIngredient(index)} color="error">
             <Delete />
           </IconButton>
         </Box>
       ))}
+
       <Button
         onClick={addIngredient}
         variant="contained"

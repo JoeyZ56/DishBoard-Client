@@ -1,9 +1,12 @@
+import { Label } from "@mui/icons-material";
 import { TextField, Box, Typography } from "@mui/material";
+import { inputStyle } from "../../styles/styles";
+import PropTypes from "prop-types";
 
 const RecipeBasics = ({ formData, handleRecipeChange }) => {
   return (
     <>
-      {/* Recipe Name Field */}
+      {/* Recipe Name */}
       <Typography variant="h6" sx={{ mb: 1 }}>
         Recipe Name
       </Typography>
@@ -15,109 +18,61 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
         fullWidth
         value={formData.recipeName}
         onChange={handleRecipeChange}
-        sx={{
-          mb: 2,
-          backgroundColor: "#FFF",
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "black", // Default border color
-            },
-            "&:hover fieldset": {
-              borderColor: "black", // Border color on hover
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "black", // Border color when focused
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "black", // Label color
-          },
-          "& .MuiInputLabel-root.Mui-focused": {
-            color: "black", // Label color when focused
-          },
-        }}
+        sx={inputStyle}
       />
 
-      {/* Labels */}
+      {/* Two Fields in Responsive Column */}
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          mb: 1,
+          flexDirection: { xs: "column", sm: "row" },
+          gap: 2,
+          mb: 2,
         }}
       >
-        <Typography variant="h6">Serving Size</Typography>
-        <Typography variant="h6">Estimated Time</Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* Servings Field */}
+        {/* Serving Size */}
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            Serving Size
+          </Typography>
+          <TextField
+            label="How many servings?"
+            name="servingSize"
+            variant="outlined"
+            fullWidth
+            value={formData.servingSize}
+            onChange={handleRecipeChange}
+            sx={inputStyle}
+          />
+        </Box>
 
-        <TextField
-          label="How many servings?"
-          name="servingSize"
-          variant="outlined"
-          value={formData.servingSize}
-          onChange={handleRecipeChange}
-          sx={{
-            backgroundColor: "#FFF",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black", // Default border color
-              },
-              "&:hover fieldset": {
-                borderColor: "black", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black", // Border color when focused
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black", // Label color
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black", // Label color when focused
-            },
-          }}
-        />
-        {/*estimated time */}
-
-        <TextField
-          label="Total time in minutes"
-          name="estimatedTime"
-          variant="outlined"
-          value={formData.estimatedTime}
-          onChange={handleRecipeChange}
-          sx={{
-            backgroundColor: "#FFF",
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "black", // Default border color
-              },
-              "&:hover fieldset": {
-                borderColor: "black", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "black", // Border color when focused
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "black", // Label color
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "black", // Label color when focused
-            },
-          }}
-        />
+        {/* Estimated Time */}
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            Estimated Time
+          </Typography>
+          <TextField
+            label="Total time in minutes"
+            name="estimatedTime"
+            variant="outlined"
+            fullWidth
+            value={formData.estimatedTime}
+            onChange={handleRecipeChange}
+            sx={inputStyle}
+          />
+        </Box>
       </Box>
     </>
   );
+};
+
+PropTypes.RecipeBasics = {
+  formData: PropTypes.shape({
+    recipeName: PropTypes.string.isRequired,
+    servingSize: PropTypes.string.isRequired,
+    estimatedTime: PropTypes.string.isRequired,
+  }).isRequired,
+  handleRecipeChange: PropTypes.func.isRequired,
 };
 
 export default RecipeBasics;

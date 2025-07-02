@@ -18,7 +18,9 @@ import RecipeForm from "./pages/RecipeForm/RecipeForm";
 //Auth
 import Register from "./pages/Auth/register/register";
 import Login from "./pages/Auth/login/login";
+import Username from "./pages/Auth/username/username";
 import RecipeDetail from "./pages/recipeDetail/recipeDetail";
+import UserAccount from "./pages/Accounts/UserAccount/UserAccount";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
         <Route path="/recipe-form" element={<RecipeForm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
+        <Route path="/username" element={<Username />} />
         <Route path="/recipes/:id" element={<RecipeDetail />} />
+        <Route path="/user-account" element={<UserAccount />} />
       </Routes>
     </Router>
   );

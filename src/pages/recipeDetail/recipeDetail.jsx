@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Paper,
-  Typography,
-  Grid2,
-  CircularProgress,
-  Button,
-} from "@mui/material";
-import HamburgerMenu from "../../components/hamburgerMenu";
+import { Box, Paper, Typography, Grid2, CircularProgress } from "@mui/material";
+import Nav from "../../components/hamburgerMenu";
 
 const RecipeDetail = () => {
   //state needed
@@ -54,7 +47,7 @@ const RecipeDetail = () => {
       ) : recipeDetail ? (
         <>
           {/* <Button onClick={handleBackButton}>Back</Button> */}
-          <HamburgerMenu />
+          <Nav />
           <Box
             sx={{
               background: "#FFF3E0",
@@ -161,7 +154,9 @@ const RecipeDetail = () => {
               <Typography>No tags</Typography>
             )}
 
-            {/* <Typography>{recipeDetail.createdBy}</Typography> */}
+            <Typography>
+              Posted by: {recipeDetail.createdBy.username}
+            </Typography>
           </Box>
         </>
       ) : (
