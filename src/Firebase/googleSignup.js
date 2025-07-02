@@ -18,7 +18,6 @@ const HandleGoogleSignup = async (navigate) => {
     //save users info to local storage
     if (dbUser) {
       const userData = {
-        username: dbUser.username,
         email: dbUser.email,
         uid: dbUser.uid,
       };

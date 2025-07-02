@@ -51,7 +51,7 @@ const IngredientFields = ({
           key={index}
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
+            flexDirection: { xs: "row", sm: "row" },
             gap: 2,
             mb: 3,
             alignItems: "center",
