@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Paper, Typography, Grid2, CircularProgress } from "@mui/material";
 import Nav from "../../components/hamburgerMenu";
+import { wrapBoxStyle } from "../../styles/styles";
 
 const RecipeDetail = () => {
   //state needed
@@ -57,7 +58,12 @@ const RecipeDetail = () => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h3" textAlign="center" gutterBottom>
+            <Typography
+              variant="h4"
+              textAlign="center"
+              gutterBottom
+              sx={{ mt: 4 }}
+            >
               {recipeDetail.recipeName}
             </Typography>
             <Paper
@@ -72,54 +78,54 @@ const RecipeDetail = () => {
                 mb: 4,
               }}
             />
+            <Box sx={wrapBoxStyle}>
+              <Grid2
+                container
+                spacing={2}
+                justifyContent="center"
+                sx={{ maxWidth: 600, mb: 2 }}
+              >
+                <Grid2 item xs={6}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    Course Type
+                  </Typography>
+                  <Typography>{recipeDetail.courseType}</Typography>
+                </Grid2>
+                <Grid2 item xs={6}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    Cuisine Type
+                  </Typography>
+                  <Typography>{recipeDetail.cuisineType}</Typography>
+                </Grid2>
+              </Grid2>
 
-            <Grid2
-              container
-              spacing={2}
-              justifyContent="center"
-              sx={{ maxWidth: 600, mb: 2 }}
-            >
-              <Grid2 item xs={6}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Course Type
-                </Typography>
-                <Typography>{recipeDetail.courseType}</Typography>
+              <Grid2
+                container
+                spacing={2}
+                justifyContent="center"
+                sx={{ maxWidth: 600, mb: 2 }}
+              >
+                <Grid2 item xs={6}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    Serving Size
+                  </Typography>
+                  <Typography>{recipeDetail.servingSize}</Typography>
+                </Grid2>
+                <Grid2 item xs={6}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    Estimated Time
+                  </Typography>
+                  <Typography>{recipeDetail.estimatedTime}</Typography>
+                </Grid2>
+                <Grid2 item xs={6}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    Difficulty
+                  </Typography>
+                  <Typography>{recipeDetail.difficultyLevel}</Typography>
+                </Grid2>
               </Grid2>
-              <Grid2 item xs={6}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Cuisine Type
-                </Typography>
-                <Typography>{recipeDetail.cuisineType}</Typography>
-              </Grid2>
-            </Grid2>
-
-            <Grid2
-              container
-              spacing={2}
-              justifyContent="center"
-              sx={{ maxWidth: 600, mb: 2 }}
-            >
-              <Grid2 item xs={6}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Serving Size
-                </Typography>
-                <Typography>{recipeDetail.servingSize}</Typography>
-              </Grid2>
-              <Grid2 item xs={6}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Estimated Time
-                </Typography>
-                <Typography>{recipeDetail.estimatedTime}</Typography>
-              </Grid2>
-              <Grid2 item xs={6}>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Difficulty
-                </Typography>
-                <Typography>{recipeDetail.difficultyLevel}</Typography>
-              </Grid2>
-            </Grid2>
-
-            <Box>
+            </Box>
+            <Box sx={wrapBoxStyle}>
               <Typography variant="h5" gutterBottom>
                 Ingredients:
               </Typography>
@@ -128,7 +134,8 @@ const RecipeDetail = () => {
                   {ingredient.name} {ingredient.quantity} {ingredient.unit}
                 </Typography>
               ))}
-
+            </Box>
+            <Box sx={wrapBoxStyle}>
               <Typography variant="h5">Instructions:</Typography>
               {recipeDetail.instructions.map((step, index) => (
                 <Typography key={index}>{step}</Typography>
@@ -136,7 +143,7 @@ const RecipeDetail = () => {
             </Box>
 
             {recipeDetail?.tags?.length > 0 ? (
-              <>
+              <Box sx={wrapBoxStyle}>
                 <Typography variant="h5" gutterBottom>
                   Tags:
                 </Typography>
@@ -149,12 +156,12 @@ const RecipeDetail = () => {
                     #{tag}
                   </Typography>
                 ))}
-              </>
+              </Box>
             ) : (
               <Typography>No tags</Typography>
             )}
 
-            <Typography>
+            <Typography variant="body2" sx={{ mt: 2 }}>
               Posted by: {recipeDetail.createdBy.username}
             </Typography>
           </Box>

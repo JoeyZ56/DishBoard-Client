@@ -32,10 +32,6 @@ const Username = () => {
     const uid = user?.uid;
 
     try {
-      // console.log("API URL:", apiURL);
-      // console.log("UID:", uid);
-      // console.log("Final URL:", `${apiURL}/api/users/${uid}`);
-
       const res = await fetch(`${apiURL}/api/users/${uid}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -46,15 +42,6 @@ const Username = () => {
         const data = await res.json();
         throw new Error(data.message || "Failed to create username");
       }
-
-      const currentAuth = JSON.parse(localStorage.getItem("auth"));
-      localStorage.setItem(
-        "auth",
-        JSON.stringify({
-          ...currentAuth,
-          username: username,
-        })
-      );
 
       navigate("/");
     } catch (error) {
