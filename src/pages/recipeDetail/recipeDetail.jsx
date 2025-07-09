@@ -56,13 +56,14 @@ const RecipeDetail = () => {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
+              backgroundColor: "#795548",
             }}
           >
             <Typography
               variant="h4"
               textAlign="center"
               gutterBottom
-              sx={{ mt: 4 }}
+              sx={{ mt: 4, mb: 4 }}
             >
               {recipeDetail.recipeName}
             </Typography>
@@ -138,7 +139,9 @@ const RecipeDetail = () => {
             <Box sx={wrapBoxStyle}>
               <Typography variant="h5">Instructions:</Typography>
               {recipeDetail.instructions.map((step, index) => (
-                <Typography key={index}>{step}</Typography>
+                <Typography key={index}>
+                  {index + 1}. {step}
+                </Typography>
               ))}
             </Box>
 
@@ -160,9 +163,18 @@ const RecipeDetail = () => {
             ) : (
               <Typography>No tags</Typography>
             )}
-
-            <Typography variant="body2" sx={{ mt: 2 }}>
-              Posted by: {recipeDetail.createdBy.username}
+          </Box>
+          <Box sx={{ textAlign: "center", mt: 4 }}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{
+                mb: 2,
+                fontWeight: "bold",
+                fontSize: "1rem",
+              }}
+            >
+              Created by: {recipeDetail.createdBy?.username || "Unknown"}
             </Typography>
           </Box>
         </>
