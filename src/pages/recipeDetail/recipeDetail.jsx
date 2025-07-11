@@ -7,7 +7,7 @@ import { wrapBoxStyle } from "../../styles/styles";
 const RecipeDetail = () => {
   //state needed
   const [recipeDetail, setRecipeDetail] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   const { id } = useParams();
@@ -37,14 +37,23 @@ const RecipeDetail = () => {
     fetchRecipeDetails();
   }, []);
 
-  const handleBackButton = () => {
-    window.history.back();
-  };
-
   return (
     <>
       {loading ? (
-        <CircularProgress />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "60vh",
+          }}
+        >
+          <CircularProgress
+            sx={{ color: "#FFC107" }}
+            size={100}
+            thickness={5}
+          />
+        </Box>
       ) : recipeDetail ? (
         <>
           {/* <Button onClick={handleBackButton}>Back</Button> */}
@@ -164,7 +173,7 @@ const RecipeDetail = () => {
               <Typography>No tags</Typography>
             )}
           </Box>
-          <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Box sx={{ textAlign: "center", mt: 4, bgcolor: "#FFC107" }}>
             <Typography
               variant="body2"
               color="textSecondary"
