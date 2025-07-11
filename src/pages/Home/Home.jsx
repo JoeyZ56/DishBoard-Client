@@ -4,13 +4,12 @@ import {
   Box,
   Grid2,
   Typography,
-  Button,
   CircularProgress,
-  CardMedia,
   Card,
-  CardContent,
+  Paper,
 } from "@mui/material";
 import Nav from "../../components/hamburgerMenu";
+import Categories from "../../components/categories";
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -59,8 +58,26 @@ const Home = () => {
   return (
     <Box sx={{ backgroundColor: "#795548", minHeight: "100vh" }}>
       <Nav />
+      <Box>
+        <Categories recipes={recipes} />
+      </Box>
 
-      <Box sx={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1rem" }}>
+      <Paper
+        sx={{
+          maxWidth: "1400px",
+          gap: 2,
+          width: "100%",
+          mx: "auto",
+          mt: "3rem",
+          px: { xs: 2, sm: 3 }, // responsive padding
+          py: 3,
+          border: "1px solid #ccc",
+          backgroundColor: "#FFF3E0",
+          borderRadius: 2,
+          boxShadow: 3,
+          boxSizing: "border-box",
+        }}
+      >
         <Typography
           variant="h3"
           gutterBottom
@@ -85,7 +102,7 @@ const Home = () => {
           >
             <CircularProgress
               sx={{ color: "#FFC107" }}
-              size={80}
+              size={100}
               thickness={5}
             />
           </Box>
@@ -111,12 +128,15 @@ const Home = () => {
                   sx={{
                     textDecoration: "none",
                     backgroundColor: "#FFF3E0",
+                    width: 300,
+                    minHeight: 300,
                     borderRadius: 3,
                     boxShadow: 3,
                     padding: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     transition: "transform 0.2s ease-in-out",
                     "&:hover": {
                       transform: "scale(1.03)",
@@ -140,12 +160,26 @@ const Home = () => {
                     variant="subtitle1"
                     fontWeight={600}
                     textAlign="center"
-                    noWrap
+                    sx={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      maxHeight: "3em",
+                    }}
                   >
                     {recipe.recipeName}
                   </Typography>
-
-                  <Typography>Chef: {recipe.createdBy.username}</Typography>
+                  <Box
+                    sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 2 }}
+                  >
+                    {recipe.tags.map((tag, index) => (
+                      <Typography key={index}>#{tag}</Typography>
+                    ))}
+                  </Box>
+                  <Typography sx={{ marginTop: 3 }}>
+                    Chef: {recipe.createdBy.username}
+                  </Typography>
                 </Card>
               </Grid2>
             ))}
@@ -157,7 +191,7 @@ const Home = () => {
             {error.message}
           </Typography>
         )}
-      </Box>
+      </Paper>
     </Box>
   );
 };
