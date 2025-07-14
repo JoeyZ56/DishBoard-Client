@@ -119,13 +119,13 @@ const RecipeDetail = () => {
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                     Serving Size
                   </Typography>
-                  <Typography>{recipeDetail.servingSize}</Typography>
+                  <Typography>{recipeDetail.servingSize} People</Typography>
                 </Grid2>
                 <Grid2 item xs={6}>
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                     Estimated Time
                   </Typography>
-                  <Typography>{recipeDetail.estimatedTime}</Typography>
+                  <Typography>{recipeDetail.estimatedTime} Minutes</Typography>
                 </Grid2>
                 <Grid2 item xs={6}>
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>
