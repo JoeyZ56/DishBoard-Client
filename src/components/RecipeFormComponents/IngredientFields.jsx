@@ -66,6 +66,7 @@ const IngredientFields = ({
             onChange={(e) => handleIngredientsChange(index, e)}
             fullWidth
             sx={inputStyle}
+            required
           />
 
           {/* Quantity */}

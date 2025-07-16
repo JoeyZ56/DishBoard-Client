@@ -43,6 +43,7 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
             value={formData.servingSize}
             onChange={handleRecipeChange}
             sx={inputStyle}
+            required
           />
         </Box>
 
@@ -59,6 +60,7 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
             value={formData.estimatedTime}
             onChange={handleRecipeChange}
             sx={inputStyle}
+            required
           />
         </Box>
       </Box>

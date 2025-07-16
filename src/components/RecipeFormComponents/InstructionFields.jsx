@@ -32,6 +32,7 @@ const InstructionFields = ({
             multiline
             rows={2}
             sx={inputStyle}
+            required
           />
           <IconButton onClick={() => removeInstruction(index)} color="error">
             <Delete />

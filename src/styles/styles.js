@@ -64,3 +64,25 @@ export const wrapBoxStyle = {
   boxShadow: 3,
   boxSizing: "border-box",
 };
+
+export const largeWrapBoxStyle = {
+  display: "flex",
+  mx: "auto",
+  mt: "3rem",
+  px: { xs: 2, sm: 3 },
+  py: 3,
+  border: "1px solid #ccc",
+  backgroundColor: "#FFF3E0",
+  borderRadius: 2,
+  boxShadow: 3,
+  boxSizing: "border-box",
+};
+
+export const loadingStyle = {
+  color: "#FFC107",
+};
+
+export const loadingProps = {
+  size: 80,
+  thickness: 5,
+};

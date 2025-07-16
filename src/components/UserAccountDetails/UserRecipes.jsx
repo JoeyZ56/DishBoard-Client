@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { auth } from "../../Firebase/firebaseClient";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -20,33 +21,33 @@ const UserRecipes = () => {
 
   //Globals
   const apiKey = import.meta.env.VITE_API_KEY;
+  const navigate = useNavigate;
 
   //Handlers
-  const handleUpdateRecipe = async (e) => {
-    const recipe = e.target.value;
+  const handleUpdateRecipe = async (updatedFields, recipeId) => {
     try {
       const user = auth.currentUser;
       if (!user) throw new Error("Not authenticated");
 
       const token = await user.getIdToken();
 
-      const res = await fetch(`${apiKey}/api/recipes/update/${user.uid}`, {
+      const res = await fetch(`${apiKey}/api/recipes/update/${recipeId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ recipe }),
+        body: JSON.stringify(updatedFields),
       });
 
       if (!res.ok) {
         const errData = await res.json();
-        throw new Error(errData.message || "Failed to update update recipe");
+        throw new Error(errData.message || "Failed to update recipe");
       }
 
       const data = await res.json();
-      setUpdateRecipe(data.user.recipe);
-      console.log("recipe updated successfully");
+      setUpdateRecipe(data.updatedRecipe);
+      console.log("Recipe updated successfully");
     } catch (error) {
       console.error("Failed to update recipe", error.message);
     }
@@ -83,95 +84,87 @@ const UserRecipes = () => {
         <Box>
           <Typography>{error}</Typography>
         </Box>
+      ) : loading || !auth ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <CircularProgress sx={{ color: "#FFC107" }} size={80} thickness={5} />
+        </Box>
       ) : (
-        <>
-          {loading || !auth ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="100vh"
+        <Box sx={{ p: 2 }}>
+          <Typography
+            variant="h5"
+            gutterBottom
+            textAlign="center"
+            sx={{ mb: 3 }}
+          >
+            My Recipes
+          </Typography>
+
+          {userRecipes.length === 0 ? (
+            <Link
+              href="/recipe-form"
+              sx={{
+                display: "inline-block",
+                textAlign: "center",
+                textDecoration: "none",
+                color: "#FFC107",
+                fontWeight: "bold",
+                "&:hover": { textDecoration: "underline" },
+              }}
             >
-              <CircularProgress
-                sx={{ color: "#FFC107" }}
-                size={80}
-                thickness={5}
-              />
-            </Box>
+              Create your first recipe
+            </Link>
           ) : (
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              padding={2}
-            >
-              {/* User Recipe posts */}
-              <Box sx={wrapBoxStyle}>
-                <Typography variant="h5" gutterBottom textAlign={"center"}>
-                  My Recipes
-                </Typography>
-                {/* Map through user's recipes and display them */}
-                {userRecipes.length === 0 ? (
-                  <Link
-                    href="/recipe-form"
-                    sx={{
-                      display: "inline-block",
-                      marginTop: 2,
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "#FFC107",
-                      fontWeight: "bold",
-                      "&:hover": { textDecoration: "underline" },
-                    }}
+            <Box display="flex" flexWrap="wrap" gap={2} justifyContent="center">
+              {userRecipes.map((recipe) => (
+                <Box
+                  key={recipe.id}
+                  sx={{
+                    width: 300,
+                    p: 2,
+                    borderRadius: 2,
+                    boxShadow: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    textAlign="center"
+                    sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
                   >
-                    Create your first recipe
-                  </Link>
-                ) : (
-                  userRecipes.map((recipe) => (
-                    <Paper
-                      component="div"
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                      elevation={3}
-                      key={recipe.id}
-                      sx={wrapBoxStyle}
-                    >
-                      <Typography
-                        variant="h6"
-                        gutterBottom
-                        textAlign={"center"}
-                        sx={{ fontWeight: "bold" }}
-                      >
-                        {recipe.recipeName}
-                      </Typography>
-                      <Paper
-                        component="img"
-                        src={`data:image/jpeg;base64,${recipe.image}`}
-                        elevation={3}
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: "100%",
-                          maxHeight: 150,
-                          maxWidth: 200,
-                          objectFit: "cover",
-                          borderRadius: 2,
-                          mb: 4,
-                        }}
-                      />
-                      <Button sx={buttonStyle}>Edit</Button>
-                      <Button sx={buttonStyle}>Delete</Button>
-                    </Paper>
-                  ))
-                )}
-              </Box>
+                    {recipe.recipeName}
+                  </Typography>
+
+                  <Box
+                    component="img"
+                    src={`data:image/jpeg;base64,${recipe.image}`}
+                    alt={recipe.recipeName}
+                    sx={{
+                      height: 200,
+                      width: "100%",
+                      objectFit: "cover",
+                      borderRadius: 2,
+                      mb: 2,
+                    }}
+                  />
+
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button sx={buttonStyle}>Edit</Button>
+                    <Button sx={buttonStyle}>Delete</Button>
+                  </Box>
+                </Box>
+              ))}
             </Box>
           )}
-        </>
+        </Box>
       )}
     </>
   );
