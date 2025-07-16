@@ -8,6 +8,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         name="courseType"
         value={formData.courseType}
         onChange={handleRecipeChange}
+        required
         options={[
           "select",
           "Breakfast",
@@ -25,6 +26,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         name="cuisineType"
         value={formData.cuisineType}
         onChange={handleRecipeChange}
+        required
         options={["select", "American", "Mexican", "Italian", "Asian", "Other"]}
       />
 
@@ -33,6 +35,7 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         name="difficultyLevel"
         value={formData.difficultyLevel}
         onChange={handleRecipeChange}
+        required
         options={["select", "Easy", "Medium", "Hard"]}
       />
     </>

@@ -86,6 +86,7 @@ const ImageUploader = ({ setFormData }) => {
         ref={fileInputRef}
         onChange={handleFileChange}
         hidden
+        required
       />
 
       {/* Clickable Box to Trigger File Input */}

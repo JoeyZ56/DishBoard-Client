@@ -103,8 +103,16 @@ const UserBio = () => {
         flexDirection: "column",
       }}
     >
-      <Paper sx={{ ...wrapBoxStyle, mb: 2 }}>
-        <Typography variant="body1" sx={{ mb: 2 }}>
+      <Paper sx={{ ...wrapBoxStyle, mb: 2, backgroundColor: "#fff" }}>
+        <Typography
+          variant="body1"
+          sx={{
+            mb: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {fetchBio}
         </Typography>
       </Paper>

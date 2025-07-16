@@ -60,7 +60,6 @@ const RecipeDetail = () => {
           <Nav />
           <Box
             sx={{
-              background: "#FFF3E0",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -141,7 +140,10 @@ const RecipeDetail = () => {
               </Typography>
               {recipeDetail.ingredientsList.map((ingredient, index) => (
                 <Typography key={index}>
-                  {ingredient.name} {ingredient.quantity} {ingredient.unit}
+                  <Typography component="span" fontWeight="bold">
+                    ({ingredient.quantity} {ingredient.unit})
+                  </Typography>{" "}
+                  {ingredient.name}
                 </Typography>
               ))}
             </Box>
