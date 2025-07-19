@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
-const ImageUploader = ({ setFormData }) => {
+const ImageUploader = ({ setFormData, formData }) => {
   const [dragging, setDragging] = useState(false);
   const [fileName, setFileName] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null); //Store image preview URL
@@ -43,6 +43,13 @@ const ImageUploader = ({ setFormData }) => {
       handleFileUpload(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    if (formData.image && typeof formData.image === "string") {
+      setPreviewUrl(`data:image/*;base64,${formData.image}`);
+      setFileName("Current Recipe Image");
+    }
+  }, []);
 
   return (
     <Box
@@ -86,7 +93,7 @@ const ImageUploader = ({ setFormData }) => {
         ref={fileInputRef}
         onChange={handleFileChange}
         hidden
-        required
+        required={!formData.image} // only required if image is not already set
       />
 
       {/* Clickable Box to Trigger File Input */}

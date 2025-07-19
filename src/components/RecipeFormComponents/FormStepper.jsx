@@ -109,7 +109,7 @@ const FormStepper = ({
           </>
         );
       case 4:
-        return <ImageUpload setFormData={setFormData} />;
+        return <ImageUpload setFormData={setFormData} formData={formData} />;
       default:
         return null;
     }
