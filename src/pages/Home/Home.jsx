@@ -31,6 +31,19 @@ const Home = ({ allRecipes, setAllRecipes }) => {
       </Box>
 
       <Box>
+        <Typography
+          variant="h4"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: 4,
+            mb: -3,
+            fontWeight: 500,
+          }}
+        >
+          Delicious Recipes
+        </Typography>
         <AllRecipeList allRecipes={allRecipes} setAllRecipes={setAllRecipes} />
       </Box>
     </Box>

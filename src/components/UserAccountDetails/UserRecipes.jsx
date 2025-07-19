@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { auth } from "../../Firebase/firebaseClient";
 import { onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -11,48 +10,18 @@ import {
   Button,
 } from "@mui/material";
 import { buttonStyle, wrapBoxStyle } from "../../styles/styles";
+import UpdateUserRecipes from "./UpdateUserRecipes";
 
 const UserRecipes = () => {
   //State
   const [userRecipes, setUserRecipes] = useState([]);
-  const [updateRecipe, setUpdateRecipe] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   //Globals
   const apiKey = import.meta.env.VITE_API_KEY;
-  const navigate = useNavigate;
 
-  //Handlers
-  const handleUpdateRecipe = async (updatedFields, recipeId) => {
-    try {
-      const user = auth.currentUser;
-      if (!user) throw new Error("Not authenticated");
-
-      const token = await user.getIdToken();
-
-      const res = await fetch(`${apiKey}/api/recipes/update/${recipeId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedFields),
-      });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.message || "Failed to update recipe");
-      }
-
-      const data = await res.json();
-      setUpdateRecipe(data.updatedRecipe);
-      console.log("Recipe updated successfully");
-    } catch (error) {
-      console.error("Failed to update recipe", error.message);
-    }
-  };
-
+  // Fetch recipes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
@@ -155,10 +124,8 @@ const UserRecipes = () => {
                       mb: 2,
                     }}
                   />
-
-                  <Box sx={{ display: "flex", gap: 2 }}>
-                    <Button sx={buttonStyle}>Edit</Button>
-                    <Button sx={buttonStyle}>Delete</Button>
+                  <Box>
+                    <UpdateUserRecipes recipe={recipe} />
                   </Box>
                 </Box>
               ))}

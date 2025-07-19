@@ -150,9 +150,7 @@ const RecipeDetail = () => {
             <Box sx={wrapBoxStyle}>
               <Typography variant="h5">Instructions:</Typography>
               {recipeDetail.instructions.map((step, index) => (
-                <Typography key={index}>
-                  {index + 1}. {step}
-                </Typography>
+                <Typography key={index}>{step}</Typography>
               ))}
             </Box>
 

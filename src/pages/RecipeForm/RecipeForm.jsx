@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import {
   Button,
   Box,
@@ -14,15 +15,19 @@ import { getAuth } from "firebase/auth";
 import FormStepper from "../../components/RecipeFormComponents/FormStepper";
 
 const RecipeForm = () => {
+  const location = useLocation();
+  const recipeToEdit = location.state?.recipe;
+  const isEditMode = !!recipeToEdit;
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    recipeName: "",
-    courseType: "select",
-    cuisineType: "select",
-    difficultyLevel: "select",
-    estimatedTime: "",
-    servingSize: "",
-    ingredientsList: [
+    recipeName: recipeToEdit?.recipeName || "",
+    courseType: recipeToEdit?.courseType || "select",
+    cuisineType: recipeToEdit?.cuisineType || "select",
+    difficultyLevel: recipeToEdit?.difficultyLevel || "select",
+    estimatedTime: recipeToEdit?.estimatedTime || "",
+    servingSize: recipeToEdit?.servingSize || "",
+    ingredientsList: recipeToEdit?.ingredientsList || [
       {
         name: "",
         quantity: "",
@@ -31,15 +36,19 @@ const RecipeForm = () => {
         customUnit: false, //acts as your toggle between select and custom input modes.
       },
     ],
-    instructions: [""],
-    image: null,
-    tags: [],
-    useCustomTag: false, //acts as your toggle between select and custom input modes.
+    instructions: recipeToEdit?.instructions || [""],
+    image: recipeToEdit?.image || null,
+    tags: recipeToEdit?.tags || [],
+    useCustomTag: recipeToEdit?.useCustomTag || false, //acts as your toggle between select and custom input modes.
   });
   const [customTagMode, setCustomTagMode] = useState(false);
   const [customTagInput, setCustomTagInput] = useState("");
   const [error, setError] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const { id } = useParams();
+
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const steps = [
     "Recipe Basics",
@@ -182,13 +191,18 @@ const RecipeForm = () => {
       data.append("tags", JSON.stringify(formData.tags));
     }
 
-    data.append("image", formData.image);
+    if (formData.image instanceof File) {
+      data.append("image", formData.image);
+    }
     data.append("createdBy", uid);
 
     try {
-      // console.log(`${import.meta.env.VITE_API_KEY}/api/recipes`);
-      const res = await fetch(`${import.meta.env.VITE_API_KEY}/api/recipes`, {
-        method: "POST",
+      //Change the fetch url depending on if user is updating or creating
+      const endpoint = id
+        ? `${apiKey}/api/recipes/update/${id}`
+        : `${apiKey}/api/recipes`;
+      const res = await fetch(endpoint, {
+        method: id ? "PUT" : "POST",
         body: data,
       });
       if (!res.ok) {
@@ -265,6 +279,8 @@ const RecipeForm = () => {
           <Button type="submit" variant="contained" sx={buttonStyle} fullWidth>
             {loading ? (
               <CircularProgress size={24} color="inherit" />
+            ) : isEditMode ? (
+              "Update Recipe"
             ) : (
               "Submit Recipe"
             )}
