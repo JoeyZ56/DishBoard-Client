@@ -15,6 +15,7 @@ const IngredientFields = ({
   setFormData,
   addIngredient,
   removeIngredient,
+  formError,
 }) => {
   //Custom data for quantity, units, and tags
   const quantityOptions = [
@@ -67,6 +68,8 @@ const IngredientFields = ({
             fullWidth
             sx={inputStyle}
             required
+            error={!!formError[`ingredient-${index}-name`]}
+            helperText={formError[`ingredient-${index}-name`]}
           />
 
           {/* Quantity */}
@@ -111,7 +114,10 @@ const IngredientFields = ({
                 }
                 setFormData((prev) => ({ ...prev, ingredientsList: updated }));
               }}
+              required
               sx={{ ...inputStyle, width: 100 }}
+              error={!!formError[`ingredient-${index}-quantity`]}
+              helperText={formError[`ingredient-${index}-quantity`]}
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>

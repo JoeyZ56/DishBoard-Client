@@ -125,7 +125,14 @@ const UserRecipes = () => {
                     }}
                   />
                   <Box>
-                    <UpdateUserRecipes recipe={recipe} />
+                    <UpdateUserRecipes
+                      recipe={recipe}
+                      onDelete={() => {
+                        setUserRecipes((prev) =>
+                          prev.filter((r) => r.id !== recipe._id)
+                        );
+                      }}
+                    />
                   </Box>
                 </Box>
               ))}

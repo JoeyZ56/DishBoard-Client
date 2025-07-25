@@ -3,7 +3,12 @@ import { TextField, Box, Typography } from "@mui/material";
 import { inputStyle } from "../../styles/styles";
 import PropTypes from "prop-types";
 
-const RecipeBasics = ({ formData, handleRecipeChange }) => {
+const RecipeBasics = ({
+  formData,
+  handleRecipeChange,
+  formError,
+  setFormError,
+}) => {
   return (
     <>
       {/* Recipe Name */}
@@ -19,6 +24,8 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
         value={formData.recipeName}
         onChange={handleRecipeChange}
         sx={inputStyle}
+        error={!!formError.recipeName}
+        helperText={formError.recipeName}
       />
 
       {/* Two Fields in Responsive Column */}
@@ -44,6 +51,8 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
             onChange={handleRecipeChange}
             sx={inputStyle}
             required
+            error={!!formError.servingSize}
+            helperText={formError.servingSize}
           />
         </Box>
 
@@ -61,6 +70,8 @@ const RecipeBasics = ({ formData, handleRecipeChange }) => {
             onChange={handleRecipeChange}
             sx={inputStyle}
             required
+            error={!!formError.estimatedTime}
+            helperText={formError.estimatedTime}
           />
         </Box>
       </Box>

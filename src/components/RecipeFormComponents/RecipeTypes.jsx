@@ -1,6 +1,6 @@
 import SelectField from "./selectFields/selectFields";
 
-const RecipeTypes = ({ formData, handleRecipeChange }) => {
+const RecipeTypes = ({ formData, handleRecipeChange, formError }) => {
   return (
     <>
       <SelectField
@@ -9,6 +9,8 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         value={formData.courseType}
         onChange={handleRecipeChange}
         required
+        error={!!formError.courseType}
+        helperText={formError.courseType}
         options={[
           "select",
           "Breakfast",
@@ -27,6 +29,8 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         value={formData.cuisineType}
         onChange={handleRecipeChange}
         required
+        error={!!formError.cuisineType}
+        helperText={formError.cuisineType}
         options={["select", "American", "Mexican", "Italian", "Asian", "Other"]}
       />
 
@@ -36,6 +40,8 @@ const RecipeTypes = ({ formData, handleRecipeChange }) => {
         value={formData.difficultyLevel}
         onChange={handleRecipeChange}
         required
+        error={!!formError.difficultyLevel}
+        helperText={formError.difficultyLevel}
         options={["select", "Easy", "Medium", "Hard"]}
       />
     </>

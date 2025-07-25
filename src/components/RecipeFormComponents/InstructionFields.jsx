@@ -7,6 +7,7 @@ const InstructionFields = ({
   handleInstructionChange,
   addInstruction,
   removeInstruction,
+  formError,
 }) => {
   return (
     <>
@@ -33,6 +34,8 @@ const InstructionFields = ({
             rows={2}
             sx={inputStyle}
             required
+            error={!!formError[`instruction-${index}`]}
+            helperText={formError[`instruction-${index}`]}
           />
           <IconButton onClick={() => removeInstruction(index)} color="error">
             <Delete />

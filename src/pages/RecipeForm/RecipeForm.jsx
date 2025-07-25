@@ -7,7 +7,7 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { buttonStyle, wrapBoxStyle } from "../../styles/styles";
+import { buttonStyle, wrapBoxStyle, errorMessage } from "../../styles/styles";
 
 //File Imports
 import Nav from "../../components/hamburgerMenu";
@@ -45,6 +45,7 @@ const RecipeForm = () => {
   const [customTagInput, setCustomTagInput] = useState("");
   const [error, setError] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
+  const [formError, setFormError] = useState({});
 
   const { id } = useParams();
 
@@ -147,6 +148,61 @@ const RecipeForm = () => {
     }));
   };
 
+  const validateForm = () => {
+    const error = {};
+
+    //Basic Info validation
+    if (!formData.recipeName.trim()) {
+      error.recipeName = (
+        <Typography sx={errorMessage}>Recipe name is required!</Typography>
+      );
+    }
+    if (!formData.servingSize) {
+      error.servingSize = "Serving size is required!";
+    }
+    if (!formData.estimatedTime === "") {
+      error.estimatedTime = "Estimated time is required!";
+    }
+    if (!/^\d+s/.test(formData.estimatedTime)) {
+      error.estimatedTime = "Numbers only";
+    }
+
+    //Ingredients validation
+    formData.ingredientsList.forEach((ingredient, index) => {
+      if (!ingredient.name.trim()) {
+        error[`ingredient-${index}-name`] = "Ingredient name is required!";
+      }
+      if (!ingredient.quantity.trim() && ingredient.customQuantity === false) {
+        error[`ingredient-${index}-quantity`] =
+          "Ingredient quantity is required!";
+      }
+    });
+
+    //Instructions Validation
+    formData.instructions.forEach((instruction, index) => {
+      if (!instruction.trim()) {
+        error[`instruction-${index}`] =
+          "Instructions required. Either enter one or remove unused from list.";
+      }
+    });
+
+    //Selects Validation
+    if (formData.courseType === "select") {
+      error.courseType = "Please choose a course type.";
+    }
+    if (formData.cuisineType === "select") {
+      error.cuisineType = "Please choose a cuisine type.";
+    }
+    if (formData.difficultyLevel === "select") {
+      error.difficultyLevel = (
+        <Typography>Please choose a difficulty level.</Typography>
+      );
+    }
+
+    setFormError(error);
+    return Object.keys(error).length === 0;
+  };
+
   //form handler
   /* The handleFormSubmit function is triggered when 
   the user submits the recipe form. Its job is to:
@@ -157,6 +213,16 @@ const RecipeForm = () => {
 	4.	Handle the response and provide feedback to the user. */
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setFormError({});
+
+    //Validation Check
+    const isValid = validateForm();
+    if (!isValid) {
+      setLoading(false);
+      alert("Missing required fields, go back and check highlighted fields");
+      return; //stop form submission
+    }
+
     setLoading(true);
 
     const auth = getAuth();
@@ -272,6 +338,9 @@ const RecipeForm = () => {
           customTagInput={customTagInput}
           setCustomTagInput={setCustomTagInput}
           reportStepToParent={setCurrentStep}
+          validateForm={validateForm}
+          formError={formError}
+          setFormError={setFormError}
         />
 
         {/* Submit Form Button */}

@@ -86,3 +86,9 @@ export const loadingProps = {
   size: 80,
   thickness: 5,
 };
+
+//Error message
+export const errorMessage = {
+  backgroundColor: "#FFF3E0",
+  width: "100%",
+};
