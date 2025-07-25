@@ -16,7 +16,7 @@ import UserRecipes from "../../../components/UserAccountDetails/UserRecipes";
 
 const UserAccount = () => {
   return (
-    <>
+    <Box sx={{ bgcolor: "#795548" }}>
       <Nav />
 
       {/* Basic Information */}
@@ -29,7 +29,7 @@ const UserAccount = () => {
       <Box sx={wrapBoxStyle}>
         <UserRecipes />
       </Box>
-    </>
+    </Box>
   );
 };
 

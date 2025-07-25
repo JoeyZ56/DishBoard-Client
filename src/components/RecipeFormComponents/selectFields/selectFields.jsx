@@ -1,10 +1,25 @@
-import { TextField, MenuItem, Typography } from "@mui/material";
+import {
+  TextField,
+  MenuItem,
+  Typography,
+  FormControl,
+  FormHelperText,
+} from "@mui/material";
 import PropTypes from "prop-types";
 import { inputStyle, menuItemStyle } from "../../../styles/styles";
 
-const SelectField = ({ label, name, value, onChange, options }) => {
+const SelectField = ({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  error,
+  helperText,
+  required,
+}) => {
   return (
-    <>
+    <FormControl fullWidth required={required} error={error} sx={{ mb: 2 }}>
       <Typography variant="h6" sx={{ mb: 1 }}>
         {label}
       </Typography>
@@ -19,11 +34,12 @@ const SelectField = ({ label, name, value, onChange, options }) => {
       >
         {options.map((option) => (
           <MenuItem key={option} value={option} sx={menuItemStyle}>
-            {option === "select" ? "Select" : option}
+            {option === "select" ? `Select ${label}` : option}
           </MenuItem>
         ))}
       </TextField>
-    </>
+      {error && <FormHelperText>{helperText}</FormHelperText>}
+    </FormControl>
   );
 };
 

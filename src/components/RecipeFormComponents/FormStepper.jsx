@@ -40,6 +40,8 @@ const FormStepper = ({
   customTagInput,
   setCustomTagInput,
   reportStepToParent,
+  formError,
+  setFormError,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -69,6 +71,8 @@ const FormStepper = ({
           <RecipeBasics
             formData={formData}
             handleRecipeChange={handleRecipeChange}
+            formError={formError}
+            setFormError={setFormError}
           />
         );
       case 1:
@@ -79,6 +83,8 @@ const FormStepper = ({
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
             setFormData={setFormData}
+            formError={formError}
+            setFormError={setFormError}
           />
         );
       case 2:
@@ -88,6 +94,8 @@ const FormStepper = ({
             handleInstructionChange={handleInstructionChange}
             addInstruction={addInstruction}
             removeInstruction={removeInstruction}
+            formError={formError}
+            setFormError={setFormError}
           />
         );
       case 3:
@@ -96,6 +104,8 @@ const FormStepper = ({
             <RecipeTypes
               formData={formData}
               handleRecipeChange={handleRecipeChange}
+              formError={formError}
+              setFormError={setFormError}
             />
             <TagSelector
               tags={formData.tags}
@@ -105,6 +115,8 @@ const FormStepper = ({
               setCustomTagMode={setCustomTagMode}
               customTagInput={customTagInput}
               setCustomTagInput={setCustomTagInput}
+              formError={formError}
+              setFormError={setFormError}
             />
           </>
         );
