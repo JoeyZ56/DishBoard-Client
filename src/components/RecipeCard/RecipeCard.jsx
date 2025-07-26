@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 
 const RecipeCard = ({ recipe }) => {
-  const { _id, image, mimeType, recipeName, tags, createdBy } = recipe;
+  const { _id, image, mimeType, recipeName, tags, createdBy, cuisineType } =
+    recipe;
 
   return (
     <Grid2
@@ -70,11 +71,13 @@ const RecipeCard = ({ recipe }) => {
         >
           {recipeName}
         </Typography>
+        <Typography sx={{ mt: 1 }}>{cuisineType}</Typography>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 2 }}>
           {tags.map((tag, index) => (
             <Typography key={index}>#{tag}</Typography>
           ))}
         </Box>
+
         <Typography sx={{ marginTop: 3 }}>
           Chef: {createdBy.username}
         </Typography>

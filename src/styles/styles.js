@@ -48,6 +48,11 @@ export const buttonStyle = {
   "&:hover": { backgroundColor: "#FFB300" },
 };
 
+//Box Styles
+export const mainBoxStyle = {
+  backgroundColor: "#795548",
+  minHeight: "100vh",
+};
 export const wrapBoxStyle = {
   display: "flex",
   flexDirection: "column",

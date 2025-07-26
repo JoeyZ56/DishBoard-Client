@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Box,
-  Grid2,
-  Typography,
-  CircularProgress,
-  Card,
-  Paper,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { mainBoxStyle } from "../../styles/styles";
 import Nav from "../../components/hamburgerMenu";
-import Categories from "../../components/categories";
+import CategoryButtons from "../../components/CategoryButtonsProp";
 import AllRecipeList from "../../components/RecipeCard/AllRecipeList";
 
 const Home = ({ allRecipes, setAllRecipes }) => {
@@ -24,10 +18,16 @@ const Home = ({ allRecipes, setAllRecipes }) => {
   // };
 
   return (
-    <Box sx={{ backgroundColor: "#795548", minHeight: "100vh" }}>
+    <Box sx={mainBoxStyle}>
       <Nav />
       <Box>
-        <Categories />
+        <CategoryButtons
+          buttons={[
+            { label: "Top Rated" },
+            { label: "Newest" },
+            { label: "Random" },
+          ]}
+        />
       </Box>
 
       <Box>

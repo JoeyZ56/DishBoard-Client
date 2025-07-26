@@ -7,7 +7,12 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { buttonStyle, wrapBoxStyle, errorMessage } from "../../styles/styles";
+import {
+  buttonStyle,
+  wrapBoxStyle,
+  errorMessage,
+  mainBoxStyle,
+} from "../../styles/styles";
 
 //File Imports
 import Nav from "../../components/hamburgerMenu";
@@ -309,7 +314,7 @@ const RecipeForm = () => {
   };
 
   return (
-    <>
+    <Box sx={{ ...mainBoxStyle, bgcolor: "#795548" }}>
       <Nav />
 
       {/* Form */}
@@ -356,7 +361,7 @@ const RecipeForm = () => {
           </Button>
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 
