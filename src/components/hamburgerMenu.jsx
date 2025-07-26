@@ -87,16 +87,36 @@ export default function HamburgerMenu() {
           <ListItem button component={Link} to="/" sx={{ py: 1.5 }}>
             <ListItemText primary="Home" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/breakfast" sx={{ py: 1.5 }}>
+          <ListItem
+            button
+            component={Link}
+            to="/breakfast-recipes"
+            sx={{ py: 1.5 }}
+          >
             <ListItemText primary="Breakfast Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/lunch" sx={{ py: 1.5 }}>
+          <ListItem
+            button
+            component={Link}
+            to="/lunch-recipes"
+            sx={{ py: 1.5 }}
+          >
             <ListItemText primary="Lunch Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/dinner" sx={{ py: 1.5 }}>
+          <ListItem
+            button
+            component={Link}
+            to="/dinner-recipes"
+            sx={{ py: 1.5 }}
+          >
             <ListItemText primary="Dinner Recipes" sx={{ color: "#000" }} />
           </ListItem>
-          <ListItem button component={Link} to="/dessert" sx={{ py: 1.5 }}>
+          <ListItem
+            button
+            component={Link}
+            to="/dessert-recipes"
+            sx={{ py: 1.5 }}
+          >
             <ListItemText primary="Dessert Recipes" sx={{ color: "#000" }} />
           </ListItem>
           {/*Show sections if logged in. If not do not show */}

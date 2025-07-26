@@ -1,18 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import {
-//   Breakfast,
-//   Lunch,
-//   Dinner,
-//   Dessert,
-// } from "./components/RecipeDisplay/category";
 import "./App.css";
 
 //Pages
 import Home from "./pages/Home/Home";
-import Breakfast from "./pages/Breakfast/breakfast";
-// import Lunch from "./pages/Lunch/Lunch";
-// import Dinner from "./pages/Dinner/Dinner";
-// import Dessert from "./pages/Dessert/Dessert";
+import BreakfastPage from "./pages/RecipePages/BreakfastPage";
+import LunchPage from "./pages/RecipePages/LunchPage";
+import DinnerPage from "./pages/RecipePages/DinnerPage";
+import DessertPage from "./pages/RecipePages/DessertPage";
 import RecipeForm from "./pages/RecipeForm/RecipeForm";
 
 //Auth
@@ -27,10 +21,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/breakfast" element={<Breakfast />} />
-        {/* <Route path="/lunch" element={<Lunch />} />
-        <Route path="/dinner" element={<Dinner />} />
-        <Route path="/dessert" element={<Dessert />} /> */}
+        <Route path="/breakfast-recipes" element={<BreakfastPage />} />
+        <Route path="/lunch-recipes" element={<LunchPage />} />
+        <Route path="/dinner-recipes" element={<DinnerPage />} />
+        <Route path="/dessert-recipes" element={<DessertPage />} />
         <Route path="/recipe-form" element={<RecipeForm />} />
         <Route path="/recipe-form/:id" element={<RecipeForm />} />
         <Route path="/login" element={<Login />} />
